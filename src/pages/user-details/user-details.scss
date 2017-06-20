@@ -1,0 +1,20 @@
+page-user-details {
+
+    // right: 1px;
+    #cart-button {            
+        position: relative;
+        width: 42px;
+        top:1px;
+        right: 1px;
+        overflow: visible!important;
+        font-size: 2em;
+    }
+
+    #cart-badge {
+        // background-color: red;
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        border-radius: 100%;
+    }
+}

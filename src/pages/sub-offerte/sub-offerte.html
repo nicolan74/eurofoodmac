@@ -1,0 +1,60 @@
+<!--
+  Generated template for the SubOfferte page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar>
+    <button menuToggle ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Eurofood</ion-title>
+    <ion-buttons end>
+      <button id="search-btn" ion-button clear (click)="goToSearchPage()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button id="cart-button" ion-button clear (click)="launchWishlist()">
+          <ion-icon name="cart">
+            <ion-badge id="cart-badge" color="danger">{{ calcSumOfQty() }}</ion-badge>
+          </ion-icon>              
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <h2 style="font-size: 1.2em; color:darkgrey"><strong>Offerte</strong></h2>
+    </ion-item>
+
+    <button ion-item *ngFor="let category of categories" (click)="goToProductsByCategory(category.id, category.name)">
+
+        {{ category.name }} 
+        <!--DEBUG-->
+        <!--<p>id_cat:{{category.id}} - id_parent:{{category.id_parent}}</p>-->
+        <!--</span>
+        </span>-->
+        <ion-icon name="arrow-forward" item-right></ion-icon>
+      
+    </button>
+
+  </ion-list>
+ 
+    <button ion-item (click)="goToViewAllInProductsByCategory()">
+      Vedi tutto
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </button>
+    <!--<div padding style="padding-top: 10px;">
+      <button ion-button (click)="goToViewAllInProductsByCategory()" color="light" block>Tutto
+        <ion-icon name="arrow-forward" item-right></ion-icon>
+      </button>
+    </div>-->
+
+</ion-content>

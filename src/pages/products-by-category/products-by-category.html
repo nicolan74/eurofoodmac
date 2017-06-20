@@ -1,0 +1,150 @@
+<!--
+  Generated template for the ProductsByCategory page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <!--<ion-navbar>
+    <ion-title>Categoria id {{id}} </ion-title>
+  </ion-navbar>-->
+  <ion-navbar>
+  <!--<ion-toolbar> -->
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Categorie</ion-title>
+    <ion-buttons end>
+      <button id="search-btn" ion-button clear (click)="goToSearchPage()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button id="cart-button" ion-button clear (click)="launchWishlist()">
+        <ion-icon name="cart">
+          <ion-badge id="cart-badge" color="danger">{{ calcSumOfQty() }}</ion-badge>
+        </ion-icon>              
+      </button>
+    </ion-buttons>
+  <!--</ion-toolbar>-->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+<!--<span *ngIf="subcategories">
+  <ion-list>
+    <ion-item>
+      <h2 style="font-size: 1.2em; color:darkgrey"><strong>Sottocategorie {{ otherCategoryName }}</strong></h2>
+    </ion-item>
+    <button ion-item *ngFor="let subcategory of subcategories" (click)="returnToProductsByCategory(subcategory.id, subcategory.name)">
+        {{ subcategory.name }} 
+        <ion-icon name="arrow-forward" item-right></ion-icon>
+    </button>
+  </ion-list>
+  <button ion-item (click)="returnandViewAllInPBC()">
+    Vedi tutto
+  <ion-icon name="arrow-forward" item-right></ion-icon>
+  </button>
+</span>-->
+
+
+<!--<span *ngIf="!subcategories">-->
+  <ion-list>
+    <ion-item>
+      <h2 style="font-size: 1.2em; color:darkgrey"><strong>{{ otherCategoryName }}</strong></h2>
+      <h2 style="font-size: 1.2em; color:darkgrey"><strong>{{ categoryNameFromReturnToProductsByCategory }}</strong></h2>
+      <h2 style="font-size: 1.2em; color:darkgrey"><strong>{{ categoryNameFromSubOfferte }}</strong></h2>
+      <!--<p>Categoria id {{id}}</p> -->
+    </ion-item>
+    
+    <!--ATTIVARE SE this.GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = TRUE-->
+    <!--<ion-item text-wrap *ngFor="let products of products" (click)="goToDetails(products.id)">-->
+
+    <!--ATTIVARE SE this.GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = FALSE--> 
+    <span *ngFor="let products of productsLoadedByCatAss">
+      <!--<ion-item text-wrap *ngFor="let products of productsLoadedByCatAss" (click)="goToDetails(products.id)">-->
+      <!--<ion-item text-wrap *ngIf='products.reference != "banner-prodotto_vetrina"' (click)="goToDetails(products.id)">-->
+      <ion-item text-wrap (click)="goToDetails(products.id)">
+              
+        <!--<span *ngIf="products.id_product_in_nested_obj == products.id" >-->
+        <ion-thumbnail item-left>
+          <!--<img src="http://www.nebula-projects.com/prestashop/api/images/products/{{products.id}}/{{products.id_default_image}}?output_format=JSON&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN " onError="this.src='http://placehold.it/350x150';"  alt="..."
+            style="width: 100px !important; height: auto !important;">-->
+
+            <!--onError="this.src='assets/img/no_image.svg';"-->
+          
+          <span *ngIf="products.hasImage"> 
+          <img src="{{ psApi.psShopHostName }}/images/products/{{products.id}}/{{products.id_default_image}}/home_default?output_format=JSON&ws_key={{ psApi.psWsKey }}"  alt="..."
+            style="width: 100px !important; height: auto !important;">
+          </span>  
+
+          <span *ngIf="!products.hasImage"> 
+            <img src="assets/img/no_image.svg"  alt="..."
+            style="width: 100px !important; height: auto !important;">
+          </span>
+
+          
+
+        </ion-thumbnail>
+        <h2 style="font-size: 1em;"> <strong>{{products.name}}</strong></h2>
+
+        <span *ngIf="!products.reduction">
+
+          <!--<span *ngIf="currentUser">-->
+          <span *ngIf="isActive_currentUser==1">
+            <h2 style="color:darkgrey; padding-top: 4px !important;">Prezzo: 
+              <span style="color:#E03E14;"><strong>{{ products.price  | currency:'EUR':true:'1.2-2'}}</strong></span>
+            </h2>
+          </span>
+          <!--</span>-->
+          <span *ngIf="!currentUser">
+          <!--<span *ngIf="isActive_currentUser==0">  -->
+            <h2 style="color:#E03E14; font-size: 0.8em; padding-top: 4px !important;">
+              Prezzo disponibile ai nostri clienti
+            </h2>
+          </span>
+
+          <span *ngIf="isActive_currentUser==0">
+          <!--<span *ngIf="isActive_currentUser==0">  -->
+            <h2 style="color:#E03E14; font-size: 0.8em; padding-top: 4px !important;">
+              Prezzo disponibile ai nostri clienti
+            </h2>
+          </span>
+          <!--</span>-->
+          
+        </span>
+
+        <span *ngIf="products.reduction">
+          <h2 style="color:#E03E14; font-size: 1.2em;">
+            <strong>- {{ products.reduction | percent }}</strong>
+          </h2>
+          <h2 style="color:darkgrey"> 
+            <strong>
+              {{ products.discountedPrice | currency:'EUR':true:'1.2-2'}} 
+            </strong>
+          </h2>
+          <h2 style="color:darkgrey">
+            Prezzo di listino <del>{{ products.price | currency:'EUR':true:'1.2-2'}} </del>
+          </h2>
+        </span>
+
+        <!--DEBUG-->
+        <!--<p>id Prod:{{ products.id }} - id img:{{ products.id_default_image }} </p>-->
+        <!--<button ion-button clear item-right (click)="goToDetails(products.id)">View</button>-->
+        <p> {{ products.category_name_in_nested_object }}</p>
+        
+      </ion-item>
+    
+    </span>    
+    
+    
+  </ion-list>
+
+
+  <!--<p ion-text color="danger" *ngIf="!productsLoadedByCatAss.length" padding text-center>
+    Spiacenti, non ci sono prodotti in questa categoria.
+  </p>-->
+<!--</span>-->
+
+
+</ion-content>

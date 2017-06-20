@@ -1,0 +1,103 @@
+page-home {
+// .slider{
+//   position: absolute !important;
+//   top: 0 !important;
+//   bottom: 0 !important;
+//   width: 100% !important;
+// }
+  ion-slide {
+    background-color: #fff;
+
+  }
+  img{
+    width: 100% !important;
+  }
+
+  .wrapper {
+    position: relative;
+  }
+    // font-family: Roboto;
+    // left: 0;
+  .wrapper p {
+    background-color: #E03E14;
+    bottom: 25%;
+    color: white;
+    font-size: 1em;
+    right: 0;
+    padding: 0.25em 0.75em;
+    position: absolute;
+  }
+
+   //opacity: 0.1;
+  .wrapper h2 {
+    background-color: rgba(224,62,20,0.8);
+    bottom:0%;
+    color: white;
+    font-size: 0.8em;
+    text-align: center;
+    max-width: 100%;
+    width:100%;
+    right: 5% !important;
+    left: 5%;
+    padding: 0.85em 0.75em;
+    position: absolute;
+  }
+
+  ion-slide img {
+    // height: 40vh !important;
+    // width: auto !important;
+    // height: 80vh; overflow: scroll;
+  }
+
+  #cart-button {            
+    position: relative;
+    width: 42px;
+    top:1px;
+    right: 1px;
+    overflow: visible!important;
+    font-size: 2em;
+  }
+
+  #cart-badge {
+    // background-color: red;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    border-radius: 100%;
+    //  opacity:0.6;
+  }
+ 
+
+ .logo {
+    // padding: 20px 0;
+    // min-height: 200px;
+    text-align: center;
+    
+    // img {
+    //   max-width: 150px;
+    // }
+
+  }
+
+  .img-loaded + ion-spinner {
+    display:none;
+  }
+// .center in my case to make the spinner at the center
+  .center{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  ion-slides {
+    background: white;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 3px 1px -2px rgba(0, 0, 0, 0.2), 
+                0 1px 5px 0 rgba(0, 0, 0, 0.12); 
+
+  }
+
+  .productsinevidenzabtn .button-inner {
+    justify-content:flex-start;
+  }
+}

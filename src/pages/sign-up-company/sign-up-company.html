@@ -1,0 +1,121 @@
+<!--
+  Generated template for the SignUpCompany page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Dati aziendali</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form [formGroup]="signupCompanyForm">
+
+    <ion-item>
+      <ion-label floating>Azienda</ion-label>
+      <ion-input formControlName="company" type="text" [class.invalid]="!signupCompanyForm.controls.company.valid && (signupCompanyForm.controls.company.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!signupCompanyForm.controls.company.valid  && (signupCompanyForm.controls.company.dirty || submitAttempt)">
+      <p text-wrap ion-text color="danger">Inserire un nome Azienda valido<br> (min 2 caratteri, non ammessi <>;=# {{ '{}'}}) </p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Numero IVA</ion-label>
+      <ion-input formControlName="vatNumber" type="number" [class.invalid]="!signupCompanyForm.controls.vatNumber.valid && (signupCompanyForm.controls.vatNumber.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!signupCompanyForm.controls.vatNumber.valid  && (signupCompanyForm.controls.vatNumber.dirty || submitAttempt)">
+      <p ion-text color="danger">Inserire un Numero IVA valido</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Indirizzo</ion-label>
+      <ion-input formControlName="address" type="text" [class.invalid]="!signupCompanyForm.controls.address.valid && (signupCompanyForm.controls.address.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!signupCompanyForm.controls.address.valid  && (signupCompanyForm.controls.address.dirty || submitAttempt)">
+      <p ion-text color="danger">Inserire un Indirizzo valido</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Cap</ion-label>
+      <ion-input formControlName="zipCode" type="number" [class.invalid]="!signupCompanyForm.controls.zipCode.valid && (signupCompanyForm.controls.zipCode.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!signupCompanyForm.controls.zipCode.valid  && (signupCompanyForm.controls.zipCode.dirty || submitAttempt)">
+      <p ion-text color="danger">Inserire un Cap valido</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Città</ion-label>
+      <ion-input formControlName="city" type="text" [class.invalid]="!signupCompanyForm.controls.city.valid && (signupCompanyForm.controls.city.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!signupCompanyForm.controls.city.valid  && (signupCompanyForm.controls.city.dirty || submitAttempt)">
+      <p ion-text color="danger">Inserire una nome di Città valido</p>
+    </ion-item>
+
+    <p style="padding-top: 1px;"></p>
+
+    <ion-item>
+      <ion-label>Provincia</ion-label>
+      <ion-select [class.invalid]="!signupCompanyForm.controls.idstate.valid && (signupCompanyForm.controls.idstate.dirty || submitAttempt)" #newSelect [(ngModel)]="idstate" formControlName="idstate" (ngModelChange)="onChange(idstate)">
+        <!--<ion-option value="0" [selected]="true">-</ion-option>-->
+        <!--<ion-option value="0">-</ion-option>-->
+
+        <ion-option value="172">Lecce</ion-option>
+        <ion-option value="134">Bari</ion-option>
+        <ion-option value="219">Taranto</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!signupCompanyForm.controls.idstate.valid  && (signupCompanyForm.controls.idstate.dirty || submitAttempt)">
+      <p ion-text color="danger">Selezionare una Provincia</p>
+    </ion-item>
+
+    <!--<ion-item>
+      <ion-label floating>Telefono</ion-label>
+      <ion-input formControlName="phone" type="number" [class.invalid]="!signupCompanyForm.controls.phone.valid && (signupCompanyForm.controls.phone.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!signupCompanyForm.controls.phone.valid  && (signupCompanyForm.controls.phone.dirty || submitAttempt)">
+      <p ion-text color="danger">Inserire un numero di telefono valido</p>
+    </ion-item>-->
+
+<ion-grid>
+  <ion-row>
+    <ion-col width-20>
+      <ion-item>
+        <ion-label stacked style="margin-top: 40px; padding-bottom: 8px; color:darkgrey; font-size: 1em;" align="right">+39</ion-label>
+        <!--<ion-input>+39</ion-input>-->
+      </ion-item>
+    </ion-col>
+
+    <ion-col width-80>
+      <ion-item>
+        <ion-label floating>Cellulare</ion-label>
+        <!--<button clear item-left>+39</button>-->
+        <ion-input formControlName="mobilePhone" type="number" [class.invalid]="!signupCompanyForm.controls.mobilePhone.valid && (signupCompanyForm.controls.mobilePhone.dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!signupCompanyForm.controls.mobilePhone.valid  && (signupCompanyForm.controls.mobilePhone.dirty || submitAttempt)">
+        <p ion-text color="danger">Inserire una numero di cellulare valido</p>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<!--<ion-item text-wrap>
+  <h2 style="color:darkgrey; font-size: 1em;">Eurofood invierà un messaggio SMS per verificare il tuo numero di telefono.</h2> 
+</ion-item>
+    
+    <div padding>
+      <button ion-button color="customOrange" (click)="onPhoneNumberVerification()" block>Verifica adesso</button>
+    </div>-->
+
+    <div padding>
+      <button ion-button color="customOrange" (click)="save()" block>Invia dati</button>
+    </div>
+
+
+
+  </form>
+</ion-content>

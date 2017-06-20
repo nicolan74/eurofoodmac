@@ -1,0 +1,87 @@
+<!--
+  Generated template for the UserDetails page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <!--<ion-navbar>-->
+    <!--<ion-title>Cutomer id: {{id}}</ion-title>-->
+    <!--<ion-title>Cutomer </ion-title>
+  </ion-navbar>-->
+
+  <ion-toolbar>
+    <button menuToggle ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Eurofood</ion-title>
+
+    <ion-buttons end>
+      <button id="cart-button" ion-button clear (click)="launchWishlist()">
+        <ion-icon name="cart">
+          <!--<ion-badge id="cart-badge" color="danger">{{ wishlistService.products.length }}</ion-badge>-->
+          <ion-badge id="cart-badge" color="danger">{{ products.length }}</ion-badge>
+         </ion-icon>              
+    </button>
+    </ion-buttons>
+
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <h2 style="font-size: 1.2em; color:darkgrey"><strong>Il mio profilo </strong></h2>
+  </ion-item>
+<span *ngIf="currentUser">  
+  <ion-item-divider color="light">Dati Personali</ion-item-divider>
+  <ion-list inset *ngFor="let user of user" >
+  <!--<ion-list *ngFor="let user of user" >-->
+    <!--<button ion-item >Cognome: {{ user.lastname }}</button>-->
+    <button ion-item ><ion-icon name="person" style="padding-right: 10px; color:darkgrey"></ion-icon>{{ user.firstname }} {{ user.lastname }}</button>
+    <!--<button ion-item >Nome: {{ user.firstname }}</button>-->
+    <button ion-item ><ion-icon name="mail" style="padding-right: 10px; color:darkgrey"></ion-icon>{{ user.email }}</button>
+  </ion-list> 
+
+
+<ion-item-divider color="light">Dati Aziendali</ion-item-divider>
+  <ion-list inset *ngFor="let address of currentUserAddress">
+    <button ion-item ><ion-icon name="home" style="padding-right: 12px; color:darkgrey"></ion-icon>{{ address.company }} </button>
+    <!--<button ion-item ><span style="padding-right: 10px; color:darkgrey"><strong> Azie</strong></span>{{ address.company }} </button>-->
+    <!--<button ion-item ><ion-icon name="information" style="padding-right: 10px; color:darkgrey"></ion-icon>P.Iva {{ address.vat_number }} </button>-->
+    <button ion-item ><span style="padding-right: 2px; color:darkgrey"><strong> P.I.</strong></span> {{ address.vat_number }} </button>
+
+    <button ion-item ><ion-icon name="pin" style="padding-left: 2px; padding-right: 12px; color:darkgrey"></ion-icon>{{ address.address1 }}, {{ address.postcode }} {{ address.city }} </button>
+    <button ion-item ><ion-icon name="phone-portrait" style="padding-left: 2px; padding-right: 12px; color:darkgrey"></ion-icon>+39 {{ address.phone_mobile }} </button>
+  </ion-list>
+</span> 
+
+<span *ngIf="!has_ADDRESS">
+  <p ion-text color="danger" padding text-center style="margin-bottom: 0px;">
+    Il tuo profilo non è ancora completo
+  </p>
+  <div text-center>
+    <button ion-button clear small style="text-transform: none !important; padding:0px !important;" (click)="onSignupCompany()"><h2 style="font-size: 1.1em;">Compila ora il form Dati Aziendali</h2></button>
+  </div>
+</span> 
+
+  <!--<ion-item>
+    <ion-row>
+      <ion-col width-50><h2 style="color:darkgrey"> </h2></ion-col>
+      <ion-col width-50></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col width-50></ion-col>
+      <ion-col width-50></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col width-50></ion-col>
+      <ion-col width-50></ion-col>
+    </ion-row>
+
+  </ion-item>-->
+</ion-content>

@@ -1,0 +1,100 @@
+<!--
+  Generated template for the Products page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Home</ion-title>
+
+      <ion-buttons end>
+        <button id="cart-button" ion-button clear>
+            <ion-icon name="cart">
+              <ion-badge id="cart-badge" color="danger">5</ion-badge>
+            </ion-icon>              
+        </button>
+      </ion-buttons>
+
+     
+  </ion-navbar>
+ 
+</ion-header>
+
+<!--<ion-content padding>-->
+<ion-content class="cards-bg">
+
+  <ion-searchbar (input)="search($event)"></ion-searchbar>
+
+  <ion-card *ngFor="let product of products" (click)="goToDetails(product.id)">
+
+  <!--<img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN" onError="this.src='http://placehold.it/350x150';"  alt="..." />-->
+
+    <ion-card-content>
+      <ion-card-title>
+        <!--{{ product.price }}-->
+        {{ product.price  | currency:'EUR':true:'1.2-2'}} 
+      </ion-card-title>
+      <p>
+        {{ product.name }}
+      </p>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="danger" icon-left>
+          <ion-icon name='star'></ion-icon>
+          id Prod:{{ product.id }}
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear small color="danger" icon-left>
+          <ion-icon name='star'></ion-icon>
+          id img:{{ product.id_default_image }}
+        </button>
+      </ion-col>
+      <!--<ion-col text-right>
+        <button ion-button clear small color="danger" icon-left>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </button>
+      </ion-col>-->
+    </ion-row>
+
+  </ion-card>
+
+ 
+
+        <!--tentativo 2 item per row-->
+        <!--<ion-row wrap>
+          <ion-col *ngFor="let product of products" (click)="goToDetails(product.id)" width-50>
+            <img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN"/>
+
+              <h2>id Prodotto:{{ product.id }}</h2>
+              <h2>id immagine:{{ product.id_default_image }}</h2>
+              <h2><strong> {{ product.name }} </strong></h2>
+              
+          </ion-col>
+        </ion-row>-->
+
+        <!--prodotti in lista (come era prima di utlizzare le card)-->
+        <!--<ion-list>
+          <ion-card ion-item *ngFor="let product of products" (click)="goToDetails(product.id)">
+              <img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN"/>
+              <ion-card-content>
+                <ion-card-title>
+                  <h3>id Prodotto:{{ product.id }}</h3>
+                  </ion-card-title>
+                  <h2> {{ product.name }}</h2>
+                  <h2>id immagine:{{ product.id_default_image }}</h2>
+                
+              </ion-card-content>
+            </ion-card>
+
+        </ion-list>-->
+
+</ion-content>

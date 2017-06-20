@@ -1,0 +1,120 @@
+<!--
+  Generated template for the RegisterAddress page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Dati aziendali</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form #signupForm="ngForm" novalidate>
+    <!--<ion-list no-lines>-->
+      <ion-item>
+        <ion-label floating>Azienda</ion-label>
+        <ion-input [(ngModel)]="signup.company" name="company" type="text" #company="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="company.valid || submitted == false" color="danger" padding-left>
+        Azienda richiesto
+      </p>
+
+      <ion-item>
+        <ion-label floating>Numero IVA</ion-label>
+        <ion-input [(ngModel)]="signup.vatnumber" name="vatnumber" type="number" #vatnumber="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="vatnumber.valid || submitted == false" color="danger" padding-left>
+        Numero IVA richiesto
+      </p>
+
+      <ion-item>
+        <ion-label floating>Indirizzo</ion-label>
+        <ion-input [(ngModel)]="signup.address" name="address" type="text" #address="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="address.valid || submitted == false" color="danger" padding-left>
+        Indirizzo richiesto
+      </p>
+
+      <ion-item>
+        <ion-label floating>Cap</ion-label>
+        <ion-input [(ngModel)]="signup.postcode" name="postcode" type="number" #postcode="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="postcode.valid || submitted == false" color="danger" padding-left>
+        Cap richiesto
+      </p>
+
+      <ion-item>
+        <ion-label floating>Città</ion-label>
+        <ion-input [(ngModel)]="signup.city" name="city" type="text" #city="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="city.valid || submitted == false" color="danger" padding-left>
+        Città richiesto
+      </p>
+
+      <!--<ion-item>
+        <ion-label floating>Provincia</ion-label>
+        <ion-input [(ngModel)]="signup.idstate" name="idstate" type="text" #idstate="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="idstate.valid || submitted == false" color="danger" padding-left>
+        Provincia richiesto
+      </p>-->
+
+      <!--<ion-item>
+        <ion-label>Provincia</ion-label>
+        <ion-select [(ngModel)]="signup.idstate" name="idstate" (ngModelChange)="showSelectValue(mySelect)">
+          <ion-option value="0" selected="true"></ion-option>
+          <ion-option value="126">Agrigento</ion-option>
+        </ion-select>
+      </ion-item>-->
+      <p style="padding-top: 1px;"></p>
+      <ion-item>
+        <ion-label>Provincia</ion-label>
+          <ion-select #newSelect [(ngModel)]="idstate" name="idstate" (ngModelChange)="onChange(idstate)">
+          <!--<ion-option value="172" checked="true">Lecce</ion-option>-->
+          <ion-option value="172" [selected]="true">Lecce</ion-option>
+          <ion-option value="134">Bari</ion-option>
+          <ion-option value="219">Taranto</ion-option>
+        </ion-select>
+      </ion-item>
+      <!--<p ion-text [hidden]="newSelect.valid || submitted == false" color="danger" padding-left>
+        Provincia richiesto
+      </p>-->
+
+
+      <ion-item>
+        <ion-label floating>Telefono</ion-label>
+        <ion-input [(ngModel)]="signup.phone" name="phone" type="number" #phone="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="phone.valid || submitted == false" color="danger" padding-left>
+        Telefono richiesto
+      </p>
+
+      <ion-item>
+        <ion-label floating>Cellulare</ion-label>
+        <ion-input [(ngModel)]="signup.phonemobile" name="phonemobile" type="number" #phonemobile="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="phonemobile.valid || submitted == false" color="danger" padding-left>
+        Cellulare richiesto
+      </p>
+
+    <!--</ion-list>-->
+
+    <div padding>
+      <button ion-button color="customOrange" (click)="onSignup(signupForm)" type="submit" block>Invia dati</button>
+    </div>
+  </form>
+
+</ion-content>

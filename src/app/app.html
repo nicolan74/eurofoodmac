@@ -1,0 +1,44 @@
+<!--<ion-menu [content]="content" persistent="true">-->
+<ion-menu [content]="content">
+
+  <ion-header>
+    <ion-toolbar>
+      <!--<ion-title>Eurofood</ion-title>-->
+      <ion-title><span *ngIf="currentUser">Ciao, {{currentUser.firstname}}</span><span *ngIf="!currentUser">Ciao, Accedi</span></ion-title>
+      
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button ion-item  *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+
+    <!--<ion-list>
+      <button ion-item menuClose *ngIf="currentUser2" (click)="logout()">
+      <ion-icon item-left name="log-out"></ion-icon>
+        Logout
+      </button>
+    </ion-list>-->
+
+  </ion-content>
+
+    <ion-footer>
+      <ion-buttons end>
+        <button ion-item menuClose *ngIf="currentUser" (click)="logout()">
+          <ion-icon item-left name="log-out"></ion-icon>
+          Logout
+        </button>
+        <button ion-item menuClose *ngIf="!currentUser" (click)="login()">
+          <ion-icon item-left name="log-in"></ion-icon>
+          Login
+        </button>
+      </ion-buttons>
+  </ion-footer>
+  
+ 
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,0 +1,82 @@
+<!--
+  Generated template for the Orders page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--<ion-header>
+
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Eurofood
+    </ion-title>
+
+    <ion-buttons end>
+      <button id="search-btn" ion-button clear (click)="goToSearchPage()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button id="cart-button" ion-button clear (click)="launchWishlist()">
+          <ion-icon name="cart">
+            <ion-badge id="cart-badge" color="danger">{{ calcSumOfQty() }}</ion-badge>
+          </ion-icon>              
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>-->
+
+<ion-header>
+  <ion-toolbar>
+    <button menuToggle ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Eurofood</ion-title>
+    <ion-buttons end>
+      <button id="search-btn" ion-button clear (click)="goToSearchPage()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button id="cart-button" ion-button clear (click)="launchWishlist()">
+          <ion-icon name="cart">
+            <ion-badge id="cart-badge" color="danger">{{ calcSumOfQty() }}</ion-badge>
+          </ion-icon>              
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+ 
+  <ion-item>
+    <h2 style="font-size: 1.2em; color:darkgrey"><strong> I miei ordini </strong></h2>
+  </ion-item>
+  <ion-card *ngFor="let order of order" (click)="goToOrderDetails(order.id)">
+    <ion-card-header>
+     <h2> <strong> Ordine N° {{order.id}} </strong></h2>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>Codice: {{ order.reference }}</h2>
+      <h2>Data: {{ order.date_add | date: 'dd/MM/yyyy' }} </h2>
+      <h2>Stato: {{ order.name }}</h2>
+      <!--<p>Stato: {{ order.name }} </p>
+      <ion-badge color="{{ order.orderstatecolor }}"> {{ order.name }} </ion-badge>
+      <button ion-button color="{{ order.orderstatecolor }}">{{ order.name }}</button>
+      <p>ID Stato: {{ order.current_state }}</p>-->
+    </ion-card-content>
+  </ion-card>
+
+  <span *ngIf="currentUser">
+    <p ion-text color="danger" *ngIf="!order" padding text-center>
+      Non hai ancora effettuato ordini
+    </p>
+  </span>
+
+  <!--<p ion-text color="danger" *ngIf="!currentUser" padding text-center>
+    Accedi per visualizzare i tuoi ordini
+  </p>-->
+</ion-content>

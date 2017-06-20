@@ -1,0 +1,196 @@
+<!--
+  Generated template for the Home page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <!--<ion-navbar>
+    <button menuToggle ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Eurofood</ion-title>
+  </ion-navbar>-->
+  <ion-toolbar>
+    <button menuToggle ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Eurofood</ion-title>
+
+    <!--<ion-buttons end>
+        <button ion-button icon-only (click)="launchWishlist()">
+          <ion-icon name="cart"></ion-icon>
+        </button>
+    </ion-buttons>-->
+
+    <ion-buttons end>
+      <button id="cart-button" ion-button clear (click)="launchWishlist()">
+        <ion-icon name="cart">
+          <!--<ion-badge id="cart-badge" color="danger">{{ wishlistService.products.length }}</ion-badge>-->
+          <!--<ion-badge id="cart-badge" color="danger">{{ products.length }}</ion-badge>-->
+          <ion-badge id="cart-badge" color="danger">{{ calcSumOfQty() }}</ion-badge>
+         </ion-icon>              
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <!--<ion-searchbar (input)="search($event)"></ion-searchbar>-->
+    <ion-buttons start>
+      <button ion-button small (click)="goToCategoryPage()">Scegli per <br>categoria</button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="goToSearchPage()">
+      <ion-searchbar ></ion-searchbar>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <!--<div class="logo" *ngFor="let product of bannerproduct" (click)="goToDetailsOfBannerProduct(product.reference)">-->
+  
+  <!--vecchie chiamata per ottenere immagine del prodotto banner-->
+  <!--<div *ngIf="bannerproduct" class="logo" (click)="goToDetailsOfBannerProduct()">
+    <img src="{{ psApi.psShopHostName }}/images/products/{{bannerproduct.id}}/{{bannerproduct.id_default_image}}?ws_key={{ psApi.psWsKey }}" alt="" />
+  </div>
+  <div *ngIf="!bannerproduct" class="logo" (click)="goToProductsOfFeaturedCategory()">
+    <img src="assets/img/sample-6.svg" alt="Eurofood banner" (click)="goToProductsOfFeaturedCategory()">
+  </div>-->
+
+  <div class="logo" style="height: 150px !important;">
+    <!--<img *ngIf="appfeaturedproduct" src="{{ psApi.psShopHostName }}/images/products/{{appfeaturedproduct.id}}/{{appfeaturedproduct.id_default_image}}?ws_key={{ psApi.psWsKey }}"  style="max-height: 150px !important;"alt="..." />-->
+    <img *ngIf="appfeaturedproduct" src="{{ psApi.psShopHostName }}/images/products/{{appfeaturedproduct.id}}/{{id_NO_default_imageOfAppFeatProduct}}?ws_key={{ psApi.psWsKey }}"  style="max-height: 150px !important;"alt="..." (click)="goToDetailsOfBannerProduct()"/>
+    <!--<img *ngIf="!appfeaturedproduct" src="assets/img/sample-6.svg" alt="Eurofood banner">-->
+    <img *ngIf="loadsLocalBanner" src="assets/img/new_placehoder_banner.svg" alt="Eurofood banner">
+  </div>
+
+  <!--<div  *ngIf="!appfeaturedproduct" class="logo">
+    <img src="assets/img/sample-6.svg" alt="Eurofood banner">
+  </div>-->
+
+  <!--onError="this.src='assets/img/sample-6.svg';"-->
+  <!--<button ion-button class="productsinevidenzabtn" color="light" full style="text-transform: none !important;" (click)=" goToProductsOfFeaturedCategory()"><p align="left" style="color: #4784CD;">Scopri i prodotti in Evidenza</p></button>-->
+  <button ion-button class="productsinevidenzabtn" color="light" full style="text-transform: none !important;" (click)="goToProductsInEvidenza()"><p align="left" style="color: #4784CD;">Scopri i prodotti in Evidenza</p></button>
+
+  <!--slider che presentava i prodotti della categoria app-featured-->
+  <!--<ion-slides pager="true" style="width:100%;height:220px;"  >
+    <ion-slide *ngFor="let product of featuredproducts; let i = index" (click)="goToDetails(product.id)" >
+      
+      <div class="wrapper">
+        <img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN" style="height: 200px !important; width: auto !important;" alt="" />
+        
+        <h2 style="padding-top: 10px; text-align: left; margin-bottom:0px">{{ product.name }} - {{ product.price  | currency:'EUR':true:'1.2-2'}}</h2>
+        
+      </div>
+    </ion-slide>
+  </ion-slides>-->
+
+  <!--CAROSELLO CATEGORIE-->
+  <ion-slides style="max-height:100px" loop slidesPerView="4">
+
+   <!--<ion-slide *ngFor="let category of categoriesInCarousel" (click)="goToCategorySelectedInCarousel(category.id, category.name)">   -->
+     
+     <span *ngFor="let category of categoriesInCarousel">
+       <ion-slide *ngIf='category.name != "Offerte" && category.name !="Banner" && category.name !="In Evidenza"' (click)="goToCategorySelectedInCarousel(category.id, category.name)">
+                                                                     
+     <!--<img src="{{ psApi.psShopHostName }}/images/categories/{{ category.id }}?ws_key={{ psApi.psWsKey }}" onError="this.src='assets/img/no_image.svg';" style="height: 70px !important; width: auto !important;" alt=" "/>-->
+      
+      <!--QUEsto è l'old OK-->
+      <!--<img src="{{ psApi.psShopHostName }}/images/categories/{{ category.id }}?ws_key={{ psApi.psWsKey }}" onError="this.src='assets/img/no_image.svg';" style="height: 70px !important; width: auto !important;" alt=" "/>-->
+    <span *ngIf="category.hasImage"> 
+      <img src="{{ psApi.psShopHostName }}/images/categories/{{ category.id }}?ws_key={{ psApi.psWsKey }}" style="height: 70px !important; width: auto !important;" alt=" "/>
+    </span>   
+
+    <span *ngIf="!category.hasImage"> 
+      <img src="assets/img/no_image.svg" style="height: 70px !important; width: auto !important;" alt=" "/>
+    </span>
+      <!--<img src="assets/img/no_image.svg"/>-->
+
+        <h2 style="color:#E03E14; font-size: 0.7em; margin-top: -5px; margin-bottom: 0px;">{{ category.name }} </h2>
+                     
+    </ion-slide>
+    </span>
+  </ion-slides>
+
+  <ion-card *ngIf="!currentUser">
+    <ion-card-header>
+      Sei un nostro cliente?
+    </ion-card-header>
+
+    <ion-card-content>
+      <button ion-button block outline color="customOrange" (click)="goToLoginPage()">Accedi</button>
+      <button ion-button clear small style="text-transform: none !important; padding:0px !important;" (click)="createAccount()">Crea un account</button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card style="min-height: 250px">
+    <ion-card-header>
+      <h1 style="font-size: 1.2em;">Le nostre offerte</h1>
+    </ion-card-header>
+
+    <!--<ion-card-content *ngFor="let product of offerproducts; let i = index" (click)="goToDetails(product.id)" >
+          <img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN" style="height: 130px !important; width: auto !important; margin: auto !important;
+      display: block !important;" alt="" />
+      <h2>  {{ product.name }}   </h2>
+      <h2 style="color:#E03E14 ;">  <strong>  {{ product.price  | currency:'EUR':true:'1.2-2'}} </strong></h2>
+      <h2>Riduzione {{ product.reduction}} </h2>
+    </ion-card-content>-->
+    <ion-list>
+      <!--ATTIVARE SE this.GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = TRUE-->
+      <!--<ion-item text-wrap *ngFor="let product of offerproducts; let i=index" (click)="goToDetails(product.id)">-->
+      
+      <!--ATTIVARE SE this.GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = FALSE--> 
+      <ion-item text-wrap *ngFor="let product of productsLoadedByCatAss; let i=index" (click)="goToDetails(product.id)">
+      
+        <ion-thumbnail item-left>
+          <!--<img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN"
+            style="width: 100px !important; height: auto !important;" alt=" " />-->
+          <img src="{{ psApi.psShopHostName }}/images/products/{{product.id}}/{{product.id_default_image}}?ws_key={{ psApi.psWsKey }}"
+            style="width: 100px !important; height: auto !important;" alt=" " />
+          <!--style="height: 75px !important; width: auto !important;" alt=" " />-->
+        </ion-thumbnail>
+        
+        <!--<span *ngIf="isDataAvailable">-->
+           
+        <h2 style="font-size: 1em;"> 
+          <strong>{{ product.name }} </strong>
+        </h2>
+
+        <span *ngIf="product.reduction"> 
+          <h2 style="color:#E03E14; font-size: 1.2em;">
+            <strong>- {{ product.reduction | percent }}</strong> 
+          </h2>
+          <!--<h2 style="color:darkgrey"> <strong>  {{ product.price  | currency:'EUR':true:'1.2-2'}} </strong></h2>-->
+          <h2 style="color:darkgrey"> 
+            <strong>  {{ product.discountedPrice | currency:'EUR':true:'1.2-2'}} </strong>
+          </h2>
+          <h2 style="color:darkgrey"> Prezzo di listino
+            <del>{{ product.price | currency:'EUR':true:'1.2-2'}} </del>
+          </h2>
+        </span>
+
+         <span *ngIf="!product.reduction">
+            <h2 style="color:darkgrey"> Prezzo di listino
+            {{ product.price | currency:'EUR':true:'1.2-2'}} 
+          </h2>
+         </span>   
+
+        <!--<h2>Sconto {{ product.reduction | percent }} </h2>-->
+
+        <!--</span>-->
+
+      </ion-item>
+      <!--<ion-item text-wrap *ngFor="let product of productSpecificPrice">
+
+        <h2>Sconto {{ product.reduction }} </h2>
+      </ion-item>-->
+    </ion-list>
+
+    <!--<hr>
+    <button ion-button clear style="text-transform: none !important; " (click)="goToProductsOfOfferCategory()">Scopri tutte le offerte</button>-->
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,45 @@
+<!--
+  Generated template for the Users page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Customers</ion-title>
+  </ion-navbar>
+
+    </ion-header>
+
+
+    <ion-content padding>
+       <!--<ion-searchbar (input)="search($event)"></ion-searchbar>-->
+        <ion-list>
+          <ion-card ion-item *ngFor="let user of users" (click)="goToDetails(user.id)">
+              <!--<img src="http://lorempixel.com/400/200/"/>-->
+              <ion-card-content>
+                <ion-card-title>
+                  <h3>Id: {{ user.id }}</h3>
+                  </ion-card-title>
+                
+                  <h2>Last Name: {{ user.lastname }}</h2>
+                  <h2>First Name: {{ user.firstname }}</h2>
+                  <h2>Email: {{ user.email }}</h2>
+                
+              </ion-card-content>
+            </ion-card>
+          <!--<button ion-item *ngFor="let user of users" (click)="goToDetails(user.id)">
+            <ion-avatar item-left>
+              <img [src]="user.avatar_url">
+            </ion-avatar>
+            <h3>{{ user.id }}</h3>
+            <h2>{{ user.name }}</h2>
+            <ion-icon name="arrow-forward" item-right></ion-icon>
+          </button>-->
+        </ion-list>
+    </ion-content>

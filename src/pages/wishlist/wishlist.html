@@ -1,0 +1,213 @@
+<!--
+  Generated template for the Wishlist page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <!--<ion-navbar>
+    <ion-title>Carrello</ion-title>
+    <ion-buttons end>
+      <button id="cart-button" ion-button clear>
+            <ion-icon name="cart">
+              <ion-badge id="cart-badge" color="danger">{{ products.length }}</ion-badge>
+            </ion-icon>              
+        </button>
+    </ion-buttons>
+  </ion-navbar>-->
+  <!--05.05 Cambio navbar con toolbar-->
+    <!--<ion-toolbar>-->
+  <ion-navbar>
+
+    <button menuToggle ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Carrello</ion-title>
+
+    <ion-buttons end>
+      <button id="search-btn" ion-button clear (click)="goToSearchPage()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+  
+      <button id="cart-button" ion-button clear>
+        <ion-icon name="cart">
+          <!--<ion-badge id="cart-badge" color="danger">{{ products.length }}</ion-badge>-->
+          <ion-badge id="cart-badge" color="danger">{{ calcSumOfQty() }}</ion-badge>
+        </ion-icon>              
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+  <!--</ion-toolbar>-->
+
+    <ion-toolbar>
+      <ion-title>
+        <h2 style="color:darkgrey; font-size: 0.9em;">Totale tasse incluse: 
+          <!--<span *ngIf="currentUser" style="color:#E03E14; margin-top: 5px;">-->
+          <span *ngIf="isActive_currentUser==1" style="color:#E03E14; margin-top: 5px;">  
+            {{ calcSumTaxInclAndRoundToUp() | currency:'EUR':true:'1.2-2'}}
+          </span> 
+          <span *ngIf="isActive_currentUser==0" style="color:#E03E14; margin-top: 5px;">  
+            non disponibile
+          </span> 
+          <span *ngIf="!currentUser" style="color:#E03E14; margin-top: 5px;">  
+            non disponibile
+          </span> 
+        </h2> 
+      </ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<!--<ion-content>
+   <ion-list *ngIf="wishlistService.products.length">
+        <ion-item *ngFor="let product of wishlistService.products">
+            <ion-thumbnail item-left>
+                <img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN">
+            </ion-thumbnail>
+            <h2>{{product.name}}</h2>
+            <h2 style="color:#E03E14 ;">{{ product.price  | currency:'EUR':true:'1.2-2'}}</h2>
+            <p>id Prod:{{ product.id }} - id img:{{ product.id_default_image }} </p>
+            <button ion-button icon-left (click)="deleteFromWishlist(product)" color="light"><ion-icon name="trash"></ion-icon>Elimina</button>
+        </ion-item>
+    </ion-list>
+    <p *ngIf="!wishlistService.products.length" padding text-center>
+        Non ci sono prodotti nel tuo carrello
+    </p>
+</ion-content>-->
+
+<!--NUOVA VIEW-->
+<ion-content class="cart">
+  <ion-list *ngIf="wishlistService.products.length">
+    <ion-card *ngFor="let product of products; let i = index">
+      <ion-item text-wrap>
+        <ion-thumbnail item-left>
+          <!--<img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN"
+           style="width: 100px !important; height: auto !important;" alt=" "/>-->
+  
+          
+            <img src="{{ psApi.psShopHostName }}/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key={{ psApi.psWsKey }}"  onError="this.src='assets/img/no_image.svg';" 
+            style="width: 100px !important; height: auto !important;" alt="..." />
+ 
+           
+        </ion-thumbnail>
+        <h2 style="font-size: 1em; padding-bottom: 5px"> <strong>{{product.name}} </strong></h2>
+
+        <span *ngIf="!product.reduction">
+
+          <!--<span *ngIf="currentUser">-->
+          <span *ngIf="isActive_currentUser==1">  
+            <h2 style="color:darkgrey; font-size: 1em;">Prezzo: 
+              <span style="color:#E03E14;">
+                <strong>{{ product.price | currency:'EUR':true:'1.2-2'}}</strong>
+              </span>
+            </h2>
+          </span>
+
+          <!--<span *ngIf="!currentUser">-->
+          <span *ngIf="isActive_currentUser==0">  
+            <h2 style="color:#E03E14; font-size: 0.8em;">Prezzo disponibile ai nostri clienti</h2>
+          </span>
+          <span *ngIf="!currentUser">  
+            <h2 style="color:#E03E14; font-size: 0.8em;">Prezzo disponibile ai nostri clienti</h2>
+          </span>
+
+
+        </span>
+
+        <span *ngIf="product.reduction">
+            <!--<span *ngIf="currentUser">-->
+          <h2 style="color:darkgrey; font-size: 1em;">Prezzo Offerta: 
+            <span style="color:#E03E14;">
+              <strong>{{ product.discountedPrice | currency:'EUR':true:'1.2-2'}}</strong>
+            </span>
+          </h2>
+        </span>
+        <!--<p>id Prod:{{ product.id }} - id img:{{ product.id_default_image }} </p>-->
+
+        <span *ngIf="product.stock_available > 0"> 
+          <h2 style="color:green; font-size: 1em; padding-top: 5px">Disponibili: {{product.stock_available}}</h2> 
+        </span>
+        <span *ngIf="product.stock_available <= 0"> 
+          <h2 style="color:red; font-size: 1em; padding-top: 5px">Prodotto Esaurito </h2>
+        </span>
+      </ion-item>
+
+      <!--<ion-item>
+        <ion-note item-left style="font-size: 0.9em;">Quantità</ion-note>-->
+      <!--<ion-input type="number" #quantity [value]="wishlistService.quantity"></ion-input>-->
+      <!--<ion-row padding>
+        <span *ngIf="product.stock_available > 0"> 
+          <h2 style="color:green; font-size: 1em;">Disponibile {{product.stock_available}}</h2> 
+        </span>
+        <span *ngIf="product.stock_available == 0"> 
+            <h2 style="color:red; font-size: 1em;">Prodotto Esaurito </h2>
+        </span>
+      </ion-row>-->
+
+      <ion-row padding>
+        <ion-col width-20><button ion-button small color="light" (click)="decrementQty(i, quantity.value)">-</button></ion-col>
+        <ion-col width-20>
+          <ion-input type="number" min="1" [ngModel]="product.qty" #quantity></ion-input>
+        </ion-col>
+
+        <ion-col width-20>
+          <button id="btnIncrementQtyInWL" [disabled]="product.qty == product.stock_available" ion-button small color="light" (click)="incrementQty(i, quantity.value)">+</button>
+        </ion-col>
+
+        <!--<ion-col width-20><ion-input type="number" [value]="product.qty" #quantity></ion-input></ion-col>-->
+        <!--
+        <ion-col width-20>
+          <ion-input type="number" [ngModel]="product.qty" #quantity></ion-input>
+        </ion-col>
+
+        <ion-col width-40><button ion-button small color="light" (click)="changeQuantity(i, quantity.value)">Cambia</button></ion-col>-->
+        <ion-col width-40><button ion-button small color="light" (click)="deleteFromWishlist(product)">Rimuovi</button></ion-col>
+      </ion-row>
+
+      <!--questo funziona  
+        <ion-input type="number" #quantity [value]="product.qty"></ion-input>-->
+
+      <!--<ion-input type="number" [value]="item.quantity" #quantity></ion-input>-->
+      <!--<ion-note item-right><button full primary (click)="changeQuantity(i, quantity.value)">Change</button></ion-note>-->
+      <!--<ion-note item-right><button ion-button small color="light" (click)="deleteFromWishlist(product)">Rimuovi</button></ion-note>
+      </ion-item>-->
+
+      <!--<ion-item>
+        <ion-note item-left>Sub Total</ion-note>
+        <ion-note item-left primary>${{item.price_discount}} x {{item.quantity}} = ${{item.price_discount * item.quantity}}</ion-note>
+      </ion-item> -->
+
+    </ion-card>
+
+  </ion-list>
+
+  <!--<p *ngIf="!wishlistService.products.length" padding text-center>-->
+  <p ion-text color="danger" *ngIf="!products.length" padding text-center>
+    Non ci sono prodotti nel tuo carrello
+  </p>
+
+</ion-content>
+
+
+<!--<ion-footer *ngIf="total">-->
+<ion-footer>
+  <ion-toolbar>
+    <!--<ion-title>Totale  €</ion-title>-->
+    <ion-item>
+      <button ion-button color="customOrange" block style="padding-top: 20px !important; padding-bottom: 20px !important;" [disabled]="!wishlistService.products.length"
+        (click)="sendCartAndOrderToPs()">
+    <!--<ion-icon name="cart" style="padding-right: 15px; font-size: 1.5em;"></ion-icon>-->
+      Invia Ordine
+    </button>
+    </ion-item>
+
+    <!--<ion-item>
+    <button ion-button color="customOrange" block style="padding-top: 20px !important; padding-bottom: 20px !important;" (click)="sendOrderToPs()">
+        Invia Ordine
+    </button>
+  </ion-item>-->
+  </ion-toolbar>
+</ion-footer>
