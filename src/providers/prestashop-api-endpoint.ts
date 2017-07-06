@@ -70,8 +70,8 @@ export class PrestaShopApi {
   }
 
   current_env(): ENVS {
-    // return ENVS.DEVELOPMENT_ENVIRONMENT_old;
-    return ENVS.TEST_ENVIRONMENT
+    return ENVS.DEVELOPMENT_ENVIRONMENT_old;
+    // return ENVS.TEST_ENVIRONMENT
   }
   // setMyGlobalVar(value) {
   //  let urlOriginalProductsInSearchPage = "http://www.nebula-projects.com/prestashop/api/products?output_format=JSON&display=[id,%20name,%20id_default_image,%20price,%20description]&filter[id_category_default]=[2]&filter[id]=[1257,1324]&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN";
