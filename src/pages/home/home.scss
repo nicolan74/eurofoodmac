@@ -100,4 +100,10 @@ page-home {
   .productsinevidenzabtn .button-inner {
     justify-content:flex-start;
   }
+
+  // dimensioni + piccole del testo nel button SCLEGLI PER CATEGORIA su iPhone
+  .bar-button-default-ios {
+    font-size: 1.5rem;
+  }
+
 }
