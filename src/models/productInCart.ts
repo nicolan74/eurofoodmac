@@ -20,6 +20,8 @@ export class ProductInCart {
     discountAmount:number;
 
     reduction: number;
+    unit_price_ratio: number;
+    unity: any;
 
     
 

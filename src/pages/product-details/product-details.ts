@@ -504,6 +504,8 @@ export class ProductDetailsPage {
     p.id_tax_rules_group = this.product.id_tax_rules_group
     p.reduction = this.product.reduction
     p.discountAmount = this.product.discountAmount
+    p.unit_price_ratio = this.product.unit_price_ratio
+    p.unity = this.product.unity
 
     // p.id_NO_default_imageOfAppFeatProduct = this.id_NO_default_imageOfAppFeatProduct
 

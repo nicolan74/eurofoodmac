@@ -70,8 +70,9 @@ export class PrestaShopApi {
   }
 
   current_env(): ENVS {
-    return ENVS.DEVELOPMENT_ENVIRONMENT_old;
-    // return ENVS.TEST_ENVIRONMENT
+    // return ENVS.DEVELOPMENT_ENVIRONMENT_old;
+    return ENVS.TEST_ENVIRONMENT
+    //return ENVS.PRODUCTION_ENVIRONMENT
   }
   // setMyGlobalVar(value) {
   //  let urlOriginalProductsInSearchPage = "http://www.nebula-projects.com/prestashop/api/products?output_format=JSON&display=[id,%20name,%20id_default_image,%20price,%20description]&filter[id_category_default]=[2]&filter[id]=[1257,1324]&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN";
@@ -96,12 +97,12 @@ export class PrestaShopApi {
      * di Eurofood ha fatto in Ps la chiamata precedente restituiva solo 2 prodotti che corrispondenvano ai filtri
      * L'attuale chiamata prende i prodotti da 1 a 10 senza filtrare per categoria
      */
-    let urlOriginalProductsInSearchPage = this.psShopHostName + "/products?output_format=JSON&display=full&filter[id]=[1,10]&ws_key=" + this.psWsKey
+    let urlOriginalProductsInSearchPage = this.psShopHostName + "/products?output_format=JSON&display=full&filter[id]=[1,10]&filter[active]=1&ws_key=" + this.psWsKey
 
     return urlOriginalProductsInSearchPage;
   }
 
-  /**
+  /** * *** USATO SE GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = true *** 
    * Load only three product of Offerte category ("Le nostre offerte in home.html") by providing offer category ID 
    * retrieved by the REQUEST loadOfferCategory in eurofood-categories.ts
    */
@@ -152,7 +153,7 @@ export class PrestaShopApi {
 
   urlFor_searchProducts(searchParam: string): string {
     // let urlSearchProducts = this.psShopHostName + "/products?output_format=JSON&display=[id,%20name,%20id_default_image,%20price,%20description]&filter[name]=%25[" + searchParam + "]%25&ws_key=" + this.psWsKey
-    let urlSearchProducts = this.psShopHostName + "/products?output_format=JSON&display=full&filter[name]=%25[" + searchParam + "]%25&ws_key=" + this.psWsKey
+    let urlSearchProducts = this.psShopHostName + "/products?output_format=JSON&display=full&filter[name]=%25[" + searchParam + "]%25&filter[active]=1&ws_key=" + this.psWsKey
     return urlSearchProducts
   }
 
@@ -217,7 +218,7 @@ export class PrestaShopApi {
     return urlCategoriesDtls
   }
 
-  /**
+  /** usato in products-by-cstegory.ts se GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = true **
    * Get prestashop product by providing category id
    * http://www.nebula-projects.com/prestashop/api/products?output_format=JSON&display=full&filter[id_category_default]=[" + id + "]&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN
    */
@@ -227,7 +228,7 @@ export class PrestaShopApi {
   }
 
   /**
-   * Carica le sottocategorie (22.05.17: usato solo per le sottocategorie di offerte)
+   * Carica le sottocategorie (22.05.17: usato solo per le sottocategorie di offerte in sub-offerte.ts)
    */
   urlFor_loadCategoriesLevelDepthThree(id: number): string {
     let urlCategoriesLevelDepthThree = this.psShopHostName + "/categories?output_format=JSON&display=full&filter[level_depth]=[3]&filter[id_parent]=[" + id + "]&ws_key=" + this.psWsKey

@@ -141,7 +141,7 @@ export class PrestashopProducts {
    * http://www.nebula-projects.com/prestashop/api/products?output_format=JSON&display=full&filter[id]=[62]&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN
    */
   loadProductInCatAssObj(id: number): Observable<Product[]> {
-    return this.http.get(`${this.psShopHostName}/products?output_format=JSON&display=full&filter[id]=[${id}]&ws_key=${this.psWsKey}`)
+    return this.http.get(`${this.psShopHostName}/products?output_format=JSON&display=full&filter[id]=[${id}]&filter[active]=1&ws_key=${this.psWsKey}`)
       // let url = this.psApi.urlFor_loadProductDetails(id)
       // console.log('urlFor_loadProductDetails ', url)
       // return this.http.get(`${url}`)

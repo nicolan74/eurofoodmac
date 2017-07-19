@@ -167,14 +167,10 @@ export class HomePage {
 
         checkImageExists(imageFile, function (existsImage) {
           if (existsImage == true) {
-
             category.hasImage = true
-
           }
           else {
-
             category.hasImage = false
-
           }
         });
 
@@ -605,6 +601,7 @@ export class HomePage {
 
   goToProductsInEvidenza(id: number, categoryName: string) {
     this.navCtrl.push(ProductsByCategoryPage, { id: this.inEvidenzaCatId, categoryName: this.inEvidenzaCatName });
+    console.log(" ===>goToProductsInEvidenza " , id)
   }
 
   /** DA VALUTARE SE VIENE UTILIZZATA */

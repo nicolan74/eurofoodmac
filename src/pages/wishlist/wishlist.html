@@ -86,66 +86,104 @@
         <ion-thumbnail item-left>
           <!--<img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN"
            style="width: 100px !important; height: auto !important;" alt=" "/>-->
-  
-          
+           
             <img src="{{ psApi.psShopHostName }}/images/products/{{product.id}}/{{product.id_default_image}}?output_format=JSON&ws_key={{ psApi.psWsKey }}"  onError="this.src='assets/img/no_image.svg';" 
             style="width: 100px !important; height: auto !important;" alt="..." />
- 
-           
+         
         </ion-thumbnail>
-        <h2 style="font-size: 1em; padding-bottom: 5px"> <strong>{{product.name}} </strong></h2>
 
+        <h2 style="font-size: 1em; padding-bottom: 5px"> 
+          <strong>
+            {{product.name}} 
+          </strong>
+        </h2>
+
+        <!-- IL PRODOTTO NON HA RIDUZIONE SUL PREZZO -->
         <span *ngIf="!product.reduction">
 
           <!--<span *ngIf="currentUser">-->
+          <!-- L'UTENTE LOGGATO E' ATTIVO  -->
           <span *ngIf="isActive_currentUser==1">  
-            <h2 style="color:darkgrey; font-size: 1em;">Prezzo: 
-              <span style="color:#E03E14;">
-                <strong>{{ product.price | currency:'EUR':true:'1.2-2'}}</strong>
-              </span>
+            
+            <span *ngIf="product.unit_price_ratio > 0">
+              <h2 style="font-size: 1em; color:darkgrey;" align="left">
+                Prezzo per unita: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+              </h2>
+            </span>
+            
+            <h2 style="color:darkgrey; font-size: 1em;">
+              Prezzo: 
+              <!-- <span style="color:#E03E14;"> -->
+                <!-- <strong> -->
+                  {{ product.price | currency:'EUR':true:'1.2-2'}}
+                <!-- </strong> -->
+              <!-- </span> -->
+            </h2>
+
+          </span>
+
+          <!-- L'UTENTE LOGGATO NON E' ATTIVO  -->
+          <!--<span *ngIf="!currentUser">-->
+          <span *ngIf="isActive_currentUser==0">  
+            <h2 style="color:#E03E14; font-size: 0.8em;">
+              Prezzo disponibile ai nostri clienti
             </h2>
           </span>
 
-          <!--<span *ngIf="!currentUser">-->
-          <span *ngIf="isActive_currentUser==0">  
-            <h2 style="color:#E03E14; font-size: 0.8em;">Prezzo disponibile ai nostri clienti</h2>
-          </span>
+          <!-- L'UTENTE NON E' LOGGATO -->
           <span *ngIf="!currentUser">  
-            <h2 style="color:#E03E14; font-size: 0.8em;">Prezzo disponibile ai nostri clienti</h2>
+            <h2 style="color:#E03E14; font-size: 0.8em;">
+              Prezzo disponibile ai nostri clienti
+            </h2>
           </span>
-
 
         </span>
-
+        <!-- END IL PRODOTTO NON HA RIDUZIONE SUL PREZZO -->
+        
+        <!-- IL PRODOTTO HA RIDUZIONE SUL PREZZO -->
         <span *ngIf="product.reduction">
             <!--<span *ngIf="currentUser">-->
-          <h2 style="color:darkgrey; font-size: 1em;">Prezzo Offerta: 
+          <h2 style="color:darkgrey; font-size: 1em;">
+            <strong>
+              Prezzo Offerta: 
+            </strong>
             <span style="color:#E03E14;">
-              <strong>{{ product.discountedPrice | currency:'EUR':true:'1.2-2'}}</strong>
+              <strong>
+                {{ product.discountedPrice | currency:'EUR':true:'1.2-2' }}
+              </strong>
             </span>
           </h2>
+
+          <!-- PREZZO x UNITA -->
+          <!-- <span *ngIf="product.unit_price_ratio > 0">
+            <h2 style="font-size: 1em; color:darkgrey;" align="left">
+              Prezzo per unità: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+            </h2>
+          </span>   -->
+
+          <h2 style="color:darkgrey; font-size: 1em;">
+            Prezzo: 
+            <del>
+              {{ product.price | currency:'EUR':true:'1.2-2'}} 
+            </del>
+          </h2>
+
         </span>
+        <!-- END IL PRODOTTO HA RIDUZIONE SUL PREZZO -->
         <!--<p>id Prod:{{ product.id }} - id img:{{ product.id_default_image }} </p>-->
 
         <span *ngIf="product.stock_available > 0"> 
-          <h2 style="color:green; font-size: 1em; padding-top: 5px">Disponibili: {{product.stock_available}}</h2> 
+          <h2 style="color:green; font-size: 1em; padding-top: 5px">
+            Disponibili: {{product.stock_available}}
+          </h2> 
         </span>
+
         <span *ngIf="product.stock_available <= 0"> 
-          <h2 style="color:red; font-size: 1em; padding-top: 5px">Prodotto Esaurito </h2>
+          <h2 style="color:red; font-size: 1em; padding-top: 5px">
+            Prodotto Esaurito 
+          </h2>
         </span>
       </ion-item>
-
-      <!--<ion-item>
-        <ion-note item-left style="font-size: 0.9em;">Quantità</ion-note>-->
-      <!--<ion-input type="number" #quantity [value]="wishlistService.quantity"></ion-input>-->
-      <!--<ion-row padding>
-        <span *ngIf="product.stock_available > 0"> 
-          <h2 style="color:green; font-size: 1em;">Disponibile {{product.stock_available}}</h2> 
-        </span>
-        <span *ngIf="product.stock_available == 0"> 
-            <h2 style="color:red; font-size: 1em;">Prodotto Esaurito </h2>
-        </span>
-      </ion-row>-->
 
       <ion-row padding>
         <ion-col width-20><button ion-button small color="light" (click)="decrementQty(i, quantity.value)">-</button></ion-col>

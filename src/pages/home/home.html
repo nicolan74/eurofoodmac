@@ -51,7 +51,7 @@
 
 <ion-content>
   <!--<div class="logo" *ngFor="let product of bannerproduct" (click)="goToDetailsOfBannerProduct(product.reference)">-->
-  
+
   <!--vecchie chiamata per ottenere immagine del prodotto banner-->
   <!--<div *ngIf="bannerproduct" class="logo" (click)="goToDetailsOfBannerProduct()">
     <img src="{{ psApi.psShopHostName }}/images/products/{{bannerproduct.id}}/{{bannerproduct.id_default_image}}?ws_key={{ psApi.psWsKey }}" alt="" />
@@ -62,7 +62,8 @@
 
   <div class="logo" style="height: 150px !important;">
     <!--<img *ngIf="appfeaturedproduct" src="{{ psApi.psShopHostName }}/images/products/{{appfeaturedproduct.id}}/{{appfeaturedproduct.id_default_image}}?ws_key={{ psApi.psWsKey }}"  style="max-height: 150px !important;"alt="..." />-->
-    <img *ngIf="appfeaturedproduct" src="{{ psApi.psShopHostName }}/images/products/{{appfeaturedproduct.id}}/{{id_NO_default_imageOfAppFeatProduct}}?ws_key={{ psApi.psWsKey }}"  style="max-height: 150px !important;"alt="..." (click)="goToDetailsOfBannerProduct()"/>
+    <img *ngIf="appfeaturedproduct" src="{{ psApi.psShopHostName }}/images/products/{{appfeaturedproduct.id}}/{{id_NO_default_imageOfAppFeatProduct}}?ws_key={{ psApi.psWsKey }}"
+      style="max-height: 150px !important;" alt="..." (click)="goToDetailsOfBannerProduct()" />
     <!--<img *ngIf="!appfeaturedproduct" src="assets/img/sample-6.svg" alt="Eurofood banner">-->
     <img *ngIf="loadsLocalBanner" src="assets/img/new_placehoder_banner.svg" alt="Eurofood banner">
   </div>
@@ -89,11 +90,12 @@
   </ion-slides>-->
 
   <!--CAROSELLO CATEGORIE-->
-  <ion-slides style="max-height:100px" loop slidesPerView="4">
+  <!-- <ion-slides style="max-height:100px" loop slidesPerView="4"> -->
+  <ion-slides style="max-height:100px" slidesPerView="4">
 
-   <!--<ion-slide *ngFor="let category of categoriesInCarousel" (click)="goToCategorySelectedInCarousel(category.id, category.name)">   -->
-     
-     <span *ngFor="let category of categoriesInCarousel">
+    <!--<ion-slide *ngFor="let category of categoriesInCarousel" (click)="goToCategorySelectedInCarousel(category.id, category.name)">   -->
+
+    <span *ngFor="let category of categoriesInCarousel">
        <ion-slide *ngIf='category.name != "Offerte" && category.name !="Banner" && category.name !="In Evidenza"' (click)="goToCategorySelectedInCarousel(category.id, category.name)">
                                                                      
      <!--<img src="{{ psApi.psShopHostName }}/images/categories/{{ category.id }}?ws_key={{ psApi.psWsKey }}" onError="this.src='assets/img/no_image.svg';" style="height: 70px !important; width: auto !important;" alt=" "/>-->
@@ -101,16 +103,16 @@
       <!--QUEsto è l'old OK-->
       <!--<img src="{{ psApi.psShopHostName }}/images/categories/{{ category.id }}?ws_key={{ psApi.psWsKey }}" onError="this.src='assets/img/no_image.svg';" style="height: 70px !important; width: auto !important;" alt=" "/>-->
     <span *ngIf="category.hasImage"> 
-      <img src="{{ psApi.psShopHostName }}/images/categories/{{ category.id }}?ws_key={{ psApi.psWsKey }}" style="height: 70px !important; width: auto !important;" alt=" "/>
-    </span>   
+      <img src="{{ psApi.psShopHostName }}/images/categories/{{ category.id }}?ws_key={{ psApi.psWsKey }}" style="height: 50px !important; width: auto !important;" alt=" "/>
+    </span>
 
     <span *ngIf="!category.hasImage"> 
-      <img src="assets/img/no_image.svg" style="height: 70px !important; width: auto !important;" alt=" "/>
+      <img src="assets/img/no_image_no_padding.svg" style="height: 50px !important; width: auto !important;" alt=" "/>
     </span>
-      <!--<img src="assets/img/no_image.svg"/>-->
+    <!--<img src="assets/img/no_image.svg"/>-->
 
-        <h2 style="color:#E03E14; font-size: 0.7em; margin-top: -5px; margin-bottom: 0px;">{{ category.name }} </h2>
-                     
+    <h2 style="color:#E03E14; font-size: 0.7em; margin-top: 2px; margin-bottom: 0px;">{{ category.name }} </h2>
+
     </ion-slide>
     </span>
   </ion-slides>
@@ -126,7 +128,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card style="min-height: 250px">
+  <ion-card style="min-height: 200px">
     <ion-card-header>
       <h1 style="font-size: 1.2em;">Le nostre offerte</h1>
     </ion-card-header>
@@ -141,10 +143,10 @@
     <ion-list>
       <!--ATTIVARE SE this.GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = TRUE-->
       <!--<ion-item text-wrap *ngFor="let product of offerproducts; let i=index" (click)="goToDetails(product.id)">-->
-      
-      <!--ATTIVARE SE this.GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = FALSE--> 
+
+      <!--ATTIVARE SE this.GET_PRODUCT_BY_ID_CATEGORY_DEFAULT = FALSE-->
       <ion-item text-wrap *ngFor="let product of productsLoadedByCatAss; let i=index" (click)="goToDetails(product.id)">
-      
+
         <ion-thumbnail item-left>
           <!--<img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN"
             style="width: 100px !important; height: auto !important;" alt=" " />-->
@@ -152,31 +154,63 @@
             style="width: 100px !important; height: auto !important;" alt=" " />
           <!--style="height: 75px !important; width: auto !important;" alt=" " />-->
         </ion-thumbnail>
-        
+
         <!--<span *ngIf="isDataAvailable">-->
-           
-        <h2 style="font-size: 1em;"> 
-          <strong>{{ product.name }} </strong>
+
+        <h2 style="font-size: 1em;">
+          <strong>
+            {{ product.name }} 
+          </strong>
         </h2>
 
+        <!-- IL PRODOTTO HA RIDUZIONE SUL PREZZO -->
         <span *ngIf="product.reduction"> 
           <h2 style="color:#E03E14; font-size: 1.2em;">
-            <strong>- {{ product.reduction | percent }}</strong> 
+            <strong>
+              - {{ product.reduction | percent }}
+            </strong> 
           </h2>
           <!--<h2 style="color:darkgrey"> <strong>  {{ product.price  | currency:'EUR':true:'1.2-2'}} </strong></h2>-->
           <h2 style="color:darkgrey"> 
-            <strong>  {{ product.discountedPrice | currency:'EUR':true:'1.2-2'}} </strong>
+            <strong>
+              Prezzo Offerta: {{ product.discountedPrice | currency:'EUR':true:'1.2-2'}} 
+            </strong>
           </h2>
-          <h2 style="color:darkgrey"> Prezzo di listino
-            <del>{{ product.price | currency:'EUR':true:'1.2-2'}} </del>
+
+          <!-- PREZZO x UNITA -->
+          <!-- <span *ngIf="product.unit_price_ratio > 0"> 
+            <h2 style="font-size: 1em; color:darkgrey"> 
+              Prezzo per unità: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+            </h2>
+          </span>   -->
+          
+          <h2 style="font-size: 1em; color:darkgrey;" align="left">
+            <!-- <em> -->
+            Prezzo: 
+            <del>  
+              {{ product.price | currency:'EUR':true:'1.2-2'}} 
+            </del> 
+            <!-- </em> -->
           </h2>
         </span>
+        <!-- END IL PRODOTTO HA RIDUZIONE SUL PREZZO -->
 
-         <span *ngIf="!product.reduction">
-            <h2 style="color:darkgrey"> Prezzo di listino
-            {{ product.price | currency:'EUR':true:'1.2-2'}} 
+        <!-- IL PRODOTTO NON HA RIDUZIONE SUL PREZZO -->
+        <span *ngIf="!product.reduction">
+          <span *ngIf="product.unit_price_ratio > 0">
+            <h2 style="color:darkgrey; font-size: 1em;"> 
+              <strong> 
+                Prezzo per unità: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}} 
+              </strong>
+            </h2>
+          </span>
+          <h2 style="font-size: 1em; color:darkgrey;" align="left">
+            <!-- <em> -->
+            Prezzo: {{ product.price | currency:'EUR':true:'1.2-2'}} 
+            <!-- </em> -->
           </h2>
-         </span>   
+          
+        </span>
 
         <!--<h2>Sconto {{ product.reduction | percent }} </h2>-->
 

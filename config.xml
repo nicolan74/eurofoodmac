@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.negozio24" version="0.1.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.frontiere21.negozio24" version="0.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Negozio 24 vT</name>
     <description>Negozio 24</description>
-    <author email="info@frontiere21.it" href="http://ionicframework.com/">Frontiere21 S.R.L</author>
+    <author email="info@frontiere21.it" href="http://frontiere21.com/">Frontiere21 S.R.L</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -68,7 +68,6 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
-        <preference name="KeyboardDispayRequireUserAction" value="false" />
     </platform>
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />

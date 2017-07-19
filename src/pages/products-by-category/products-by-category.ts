@@ -140,6 +140,18 @@ export class ProductsByCategoryPage {
     }
     console.log('--> this.id ', this.id)
 
+    //Create the Loading popup
+    let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading data...'
+    });
+    //Show the popup
+    loadingPopup.present();
+
+    //Dismiss yje popup
+    setTimeout(() => {
+      loadingPopup.dismiss();
+    }, 2000);
+
   } // end constructor
 
   ngOnInit() {
@@ -308,15 +320,7 @@ export class ProductsByCategoryPage {
         this.categoryName = category['name']
         console.log('++++ NAME CATEGORIA ', this.categoryName)
 
-        // Create the Loading popup
-        // setTimeout(() => {
-        // let loadingPopup = this.loadingCtrl.create({
-        //   content: 'Loading data...'
-        // });
-        // Show the popup
-        // loadingPopup.present();
 
-        // setTimeout(() => {
 
         /**
          * dopo l'aggiunta della proprietà hasImage nel models category.ts

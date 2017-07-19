@@ -67,32 +67,53 @@
       </span>-->
 
     </ion-thumbnail>
-    <h2  style="font-size: 1em;"><strong>{{ product.name }}</strong></h2>
+    <h2 style="font-size: 1em; padding-bottom: 4px !important;">
+      <strong>
+        {{ product.name }}
+      </strong>
+    </h2>
 
+    <!-- IL PRODOTTO NON HA RIDUZIONE SUL PREZZO -->
     <span *ngIf="!product.reduction">
 
       <!--<span *ngIf="currentUser">-->
-      <span *ngIf="isActive_currentUser==1">   
-        <h2 style="color:darkgrey; padding-top: 4px !important;">Prezzo:  
-          <span style="color:#E03E14;"><strong>{{ product.price  | currency:'EUR':true:'1.2-2'}}</strong></span>
+      <span *ngIf="isActive_currentUser==1">  
+
+        <span *ngIf="product.unit_price_ratio > 0">
+          <h2 style="font-size: 1em; color:darkgrey;" align="left">
+            <strong>
+              Prezzo per unità: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+            </strong>
+          </h2> 
+        </span>
+
+        <h2 style="font-size: 1em; color:darkgrey;">
+          Prezzo:  
+          <!-- <span style="color:#E03E14;"> -->
+            <!-- <strong> -->
+              {{ product.price  | currency:'EUR':true:'1.2-2'}}
+            <!-- </strong> -->
+          <!-- </span> -->
         </h2>
+
       </span>
 
       <!--<span *ngIf="!currentUser">-->
       <span *ngIf="isActive_currentUser==0">   
-        <h2 style="color:#E03E14; font-size: 0.8em; padding-top: 4px !important;">
+        <h2 style="color:#E03E14; font-size: 0.8em;">
           Prezzo disponibile ai nostri clienti
         </h2>
       </span>
 
       <span *ngIf="!currentUser">   
-        <h2 style="color:#E03E14; font-size: 0.8em; padding-top: 4px !important;">
+        <h2 style="color:#E03E14; font-size: 0.8em;">
           Prezzo disponibile ai nostri clienti
         </h2>
       </span>
 
     </span>
 
+    <!-- IL PRODOTTO HA UNA RIDUZIONE SUL PREZZO - NOTA: NON INTEGRATO NEL COMPONENT -->
     <span *ngIf="product.reduction">
       <h2 style="color:#E03E14; font-size: 1.2em;">
         <strong>- {{ product.reduction | percent }}</strong>
@@ -100,13 +121,16 @@
       <h2 style="color:darkgrey"> 
         <strong>
           <!--<span *ngIf="currentUser">-->
-            {{ product.discountedPrice | currency:'EUR':true:'1.2-2'}} 
+           Prezzo Offerta: {{ product.discountedPrice | currency:'EUR':true:'1.2-2'}} 
           <!--</span>-->
         </strong>
       </h2>
       <h2 style="color:darkgrey">
         <!--<span *ngIf="currentUser">--> 
-          Prezzo di listino <del>{{ product.price | currency:'EUR':true:'1.2-2'}} </del>
+          Prezzo:
+          <del>
+            {{ product.price | currency:'EUR':true:'1.2-2'}} 
+          </del>
         <!--</span>-->
       </h2>
     </span>    

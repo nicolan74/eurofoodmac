@@ -43,6 +43,8 @@ export class SearchPage {
   subscription: Subscription;
 
   currentTerm: string;
+
+  product_price_for_unit: number
   // resuluOfSearch: boolean = false
 
   @ViewChild('focusInput') myInput;
@@ -226,44 +228,48 @@ export class SearchPage {
       // // Show the popup
       // loadingPopup.present();
       // setTimeout(() => {
-        this.subscription = this.psProducts.searchProducts(term).subscribe(products => {
-          this.products = products
-          console.log('Prodotti cercati x term ', term)
+      this.subscription = this.psProducts.searchProducts(term).subscribe(products => {
+        this.products = products
+        console.log('Prodotti cercati x term ', term)
+        console.log('Prodotti cercati ', products)
 
-          /**
-           * Check se l'immagine esiste
-           */
-          // for (let product of products) {
-            
-          //   var imageFile = this.psApi.psShopHostName + "/images/products/" + product.id + "/" + product.id_default_image + "/home_default?ws_key=" + this.psApi.psWsKey
+        let products_lenght = products.length
+        console.log('Products Lenght ', products_lenght)
 
-          //   checkImageExists(imageFile, function (existsImage) {
-          //     if (existsImage == true) {
-          //       product.hasImage = true
-          //       console.log('Product HAS IMAGE ', product.hasImage)
-          //     }
-          //     else {
-          //       product.hasImage = false
-          //       console.log('Product HAS IMAGE ', product.hasImage)
-          //     }
+        /**
+         * Check se l'immagine esiste
+         */
+        // for (let product of products) {
 
-          //   }); // end checkImageExists
-          // } // end FOR 
+        //   var imageFile = this.psApi.psShopHostName + "/images/products/" + product.id + "/" + product.id_default_image + "/home_default?ws_key=" + this.psApi.psWsKey
 
-          // // Use the below code to check if image exist using image url.
-          // function checkImageExists(imageUrl, callBack) {
-          //   var imageData = new Image();
-          //   imageData.onload = function () {
-          //     callBack(true);
-          //   };
-          //   imageData.onerror = function () {
-          //     callBack(false);
-          //   };
-          //   imageData.src = imageUrl;
-          // } // end checkImageExists
+        //   checkImageExists(imageFile, function (existsImage) {
+        //     if (existsImage == true) {
+        //       product.hasImage = true
+        //       console.log('Product HAS IMAGE ', product.hasImage)
+        //     }
+        //     else {
+        //       product.hasImage = false
+        //       console.log('Product HAS IMAGE ', product.hasImage)
+        //     }
 
-          
-        }); // end subscribe product
+        //   }); // end checkImageExists
+        // } // end FOR 
+
+        // // Use the below code to check if image exist using image url.
+        // function checkImageExists(imageUrl, callBack) {
+        //   var imageData = new Image();
+        //   imageData.onload = function () {
+        //     callBack(true);
+        //   };
+        //   imageData.onerror = function () {
+        //     callBack(false);
+        //   };
+        //   imageData.src = imageUrl;
+        // } // end checkImageExists
+
+
+      }); // end subscribe product
 
       //   loadingPopup.dismiss();
       // }, 1000); // end  setTimeout
