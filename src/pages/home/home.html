@@ -111,7 +111,7 @@
     </span>
     <!--<img src="assets/img/no_image.svg"/>-->
 
-    <h2 style="color:#E03E14; font-size: 0.7em; margin-top: 2px; margin-bottom: 0px;">{{ category.name }} </h2>
+    <h2 style="color:#C20E1A; font-size: 0.7em; margin-top: 2px; margin-bottom: 0px;">{{ category.name }} </h2>
 
     </ion-slide>
     </span>
@@ -150,7 +150,7 @@
         <ion-thumbnail item-left>
           <!--<img src="http://www.nebula-projects.com/prestashop/api/images/products/{{product.id}}/{{product.id_default_image}}?ws_key=IFYR4IX1YJ3I9WYF2IKZKNC26FUIJPWN"
             style="width: 100px !important; height: auto !important;" alt=" " />-->
-          <img src="{{ psApi.psShopHostName }}/images/products/{{product.id}}/{{product.id_default_image}}?ws_key={{ psApi.psWsKey }}"
+          <img src="{{ psApi.psShopHostName }}/images/products/{{product.id}}/{{product.id_default_image}}?ws_key={{ psApi.psWsKey }}" onError="this.src='assets/img/no_image.svg';"
             style="width: 100px !important; height: auto !important;" alt=" " />
           <!--style="height: 75px !important; width: auto !important;" alt=" " />-->
         </ion-thumbnail>
@@ -170,28 +170,52 @@
               - {{ product.reduction | percent }}
             </strong> 
           </h2>
+
+           <!-- PREZZO x UNITA -->
+           <span *ngIf="product.unit_price_ratio > 0"> 
+            <!-- <h2 style="font-size: 1em; color:darkgrey"> 
+              Prezzo per unità: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+            </h2> -->
+            <!-- PREZZO PER UNITA SCONTATO -->
+            <h2 style="font-size: 1em; color:#E03E14"> 
+              <strong>
+                Prezzo: {{ product.discountedPrice / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+              </strong>
+                <!-- <span style="color:darkgray"> 
+                  <del> 
+                    <em> 
+                      ({{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}})
+                    </em>
+                  </del> 
+                </span> -->
+            </h2>
+          </span> 
           <!--<h2 style="color:darkgrey"> <strong>  {{ product.price  | currency:'EUR':true:'1.2-2'}} </strong></h2>-->
-          <h2 style="color:darkgrey"> 
+          
+          <h2 style="color:#E03E14;"> 
             <strong>
               Prezzo Offerta: {{ product.discountedPrice | currency:'EUR':true:'1.2-2'}} 
-            </strong>
-          </h2>
+              
+              <!-- <span style="color:darkgray"> 
+                <del> 
+                  <em> 
+                    ({{ product.price | currency:'EUR':true:'1.2-2'}})
+                  </em>
+                </del> 
+              </span> -->
 
-          <!-- PREZZO x UNITA -->
-          <!-- <span *ngIf="product.unit_price_ratio > 0"> 
-            <h2 style="font-size: 1em; color:darkgrey"> 
-              Prezzo per unità: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
-            </h2>
-          </span>   -->
+            </strong>
+          </h2> 
           
-          <h2 style="font-size: 1em; color:darkgrey;" align="left">
-            <!-- <em> -->
-            Prezzo: 
-            <del>  
-              {{ product.price | currency:'EUR':true:'1.2-2'}} 
-            </del> 
-            <!-- </em> -->
-          </h2>
+          <!-- PREZZO LISTINO (CHIAMATO ANCHE PREZZO UNITARIO) -->
+          <!-- <h2 style="font-size: 1em; color:#E03E14;" align="left">
+            <strong>
+              Prezzo listino: 
+              <del>  
+                {{ product.price | currency:'EUR':true:'1.2-2'}} 
+              </del> 
+            </strong>
+          </h2> -->
         </span>
         <!-- END IL PRODOTTO HA RIDUZIONE SUL PREZZO -->
 

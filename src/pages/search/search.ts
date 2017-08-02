@@ -21,6 +21,8 @@ import { MyCart } from '../../models/mycart';
 import { EurofoodUsers } from '../../providers/eurofood-users';
 
 import { Subscription } from 'rxjs/Rx';
+import { EurofoodCategories } from '../../providers/eurofood-categories';
+import { Category } from '../../models/category';
 /*
   Generated class for the Search page.
 
@@ -36,7 +38,7 @@ export class SearchPage {
   originalProducts: Product[];
   currentUser: User;
 
-  productsInCart: ProductInCart[]
+  productsInCart: ProductInCart[];
 
   isActive_currentUser: any;
 
@@ -44,7 +46,11 @@ export class SearchPage {
 
   currentTerm: string;
 
-  product_price_for_unit: number
+  product_price_for_unit: number;
+
+  categories: Category[];
+  offerCategoryID: number;
+  offerCategoryName: string;
   // resuluOfSearch: boolean = false
 
   @ViewChild('focusInput') myInput;
@@ -57,7 +63,8 @@ export class SearchPage {
     public wishlistService: WishlistService,
     private localstorage: Localstorage,
     private psApi: PrestaShopApi,
-    public eurofoodUsers: EurofoodUsers
+    public eurofoodUsers: EurofoodUsers,
+    private eurofoodCategories: EurofoodCategories
   ) {
 
     this.productsInCart = MyCart.getInstance().products
@@ -115,6 +122,21 @@ export class SearchPage {
       /**
        * DA IMPLEMENTARE X VISUALIZZARE I PREZZI SCONTATI NELLE RICERCHE
        */
+      // carica categoria offerte da cui prendo l'id (e il nome per test)
+      // this.eurofoodCategories.loadOfferCategory().subscribe(categoryOffer => {
+      //   this.categories = categoryOffer
+
+      //   console.log('-> Categoria Offerte ', categoryOffer)
+
+      //   this.offerCategoryID = this.categories['id']
+      //   this.offerCategoryName = this.categories['name']
+
+      //   console.log('--> Offer Category ID: ', this.offerCategoryID)
+      //   for (let j = 0; j < products.length; j++) {
+      //     let categories = this.products[j]['associations']['categories']
+      //     console.log('ARRAY CATEGORIE ', categories)
+      //   }
+      // });
       // let id_product = this.products[i]['id']
       // console.log('Id Prodotto se Categoria = Offerte', id_product)
       // this.psProducts.loadProductSpecificPrice(id_product).subscribe(specificprice => {

@@ -182,117 +182,127 @@ export class WishlistPage {
       }
 
       if (this.products[index].stock_available == 1) {
-        (<HTMLInputElement>document.getElementById("btnIncrementQty")).disabled =true;
+        (<HTMLInputElement>document.getElementById("btnIncrementQty")).disabled = true;
       }
     }
   }
 
   // ngAfterViewInit() {
   ngOnInit() {
+
     let loadingPopup = this.loadingCtrl.create({
       content: 'Loading data...'
     });
     // Show the popup
     loadingPopup.present();
     setTimeout(() => {
-
-      // for (let i = 0; i < this.products.length; ++i) {
-      //   if (this.products[i].qty == this.products[i].stock_available) {
-      //     (<HTMLInputElement>document.getElementById("btnIncrementQtyInWL")).disabled = true;
-      //   }
-      // }
-
-      // console.log ('NN ', MyCart.getInstance().value)
-      for (let p of this.products) {
-
-        console.log('Product in Cart in ngAfterViewInit (wishlist.ts)', p)
-        console.log('Product in Cart ID in ngAfterViewInit (wishlist.ts)', p.id)
-        console.log('Product in Cart stock_available in ngAfterViewInit (wishlist.ts)', p.stock_available);
-        console.log('Product in Cart QTY in ngAfterViewInit (wishlist.ts)', p.qty);
-
-        // All'entrata della Pagina se quantità selezionata = a quantità disponibile disabilita incrementa quantità
-        // !!!!!!!! ATTENZIONE FUNZIONA SOLO SE NEL CARRELLO è PRESENTE UN SOLO PRODOTTO
-
-        // if (p.qty == p.stock_available))  {
-        //   (<HTMLInputElement>document.getElementById("btnIncrementQtyInWL")).disabled = true;
-
-        // }
-
-        // dall'oggetto prodotto prendo la proprietà id_tax_rules_group
-        let id_taxRulesGroup = p.id_tax_rules_group;
-        console.log('id Tax Rule Groups (get in wishlist): ', id_taxRulesGroup)
-
-        // effettuo request a ...api/tax_rule_groups filtrando i risultati per l' id_tax_rules_group del prodotto
-        this.psProducts.loadProductIdTaxRulesGroup(p.id_tax_rules_group).subscribe(taxrule => {
-
-          this.product = taxrule;
-
-          if (taxrule) {
-            // dal Response prendo il nome della tassa applicata e la assegno a tax_rule_name proprità di prodotto 
-            this.product.tax_rule_name = taxrule['name']
-            console.log('Tassa Applicata: ', this.product.tax_rule_name)
-
-            // eseguo split della stringa che restituisce un object
-            let tax_rule_name_object = this.product.tax_rule_name.split(/(\d+)/)
-            console.log('Tassa Applicata SPLIT', tax_rule_name_object)
-
-            // prendo dall' oggetto l'elemento con index = 1 (il numero percentuale della tassa)
-            let _percentTax = tax_rule_name_object[1]
-
-            // trasformo la stringa in intero
-            let percentTax = parseInt(_percentTax)
-            console.log('percent tax Parse (retrieve in w-l.ts) a ' + p.name + ' :' + percentTax)
-
-            /* Importo della tassa e prezzo tax inclusa calcolata (se esiste) sul prezzo scontato */
-            if (p.reduction) {
-              console.log(p.name, ' HA RIDUZIONE SUL PREZZO')
-
-              let taxOverPrice = (p.discountedPrice * percentTax) / 100
-              console.log(p.name, ' Importo tassa sul Prezzo scontato: ', taxOverPrice)
-
-              let priceTaxInc = +p.discountedPrice + +taxOverPrice
-              console.log(p.name, ' Prezzo scontato tasse incluse ', priceTaxInc)
-
-              p.priceTaxInc = priceTaxInc
-
-              /* Importo della tassa e prezzo tax inclusa calcolata sul prezzo */
-            } else {
-              console.log(p.name, ' NON HA RIDUZIONE SUL PREZZO')
-              let taxOverPrice = (p.price * percentTax) / 100
-              console.log(p.name, ' Importo tassa: ', taxOverPrice)
-
-              let priceTaxInc = +p.price + +taxOverPrice
-              console.log(p.name, ' Prezzo tasse incluse ', priceTaxInc)
-
-              p.priceTaxInc = priceTaxInc
-
-            }
-
-            // let priceTaxInc = +p.price + +taxOverPrice
-            // console.log('Prezzo tasse incluse p.name ', priceTaxInc)
-
-            // this.product.priceTaxInc = priceTaxInc
-            // p.priceTaxInc = priceTaxInc
-          }
-        });
-
-        console.log(p.name, ' Sconto (retrieve in w-l.ts): ', p.reduction)
-        console.log(p.name, ' Prezzo scontato (retrieve in w-l.ts): ', p.discountedPrice)
-        console.log(p.name, ' Importo sottratto al prezzo (retrieve in w-l.ts): ', p.discountAmount)
-
-      }
-
-      // console.log('this product priceTaxInc ', this.product.priceTaxInc)
-
-      this.localstorage.hasLoggedIn().then((hasLoggedIn) => {
-        this.getCurrentUser();
-      });
-
-      let priceTotTaxIncl = this.calcSumTaxIncl()
-      console.log('Somma Tasse Incluse x qty (ngAfterViewInit) ', priceTotTaxIncl)
-
       loadingPopup.dismiss();
     }, 1);
+
+    // for (let i = 0; i < this.products.length; ++i) {
+    //   if (this.products[i].qty == this.products[i].stock_available) {
+    //     (<HTMLInputElement>document.getElementById("btnIncrementQtyInWL")).disabled = true;
+    //   }
+    // }
+
+    // console.log ('NN ', MyCart.getInstance().value)
+    for (let p of this.products) {
+
+      console.log('Product in Cart in ngAfterViewInit (wishlist.ts)', p)
+      console.log('Product in Cart ID in ngAfterViewInit (wishlist.ts)', p.id)
+      console.log('Product in Cart stock_available in ngAfterViewInit (wishlist.ts)', p.stock_available);
+      console.log('Product in Cart QTY in ngAfterViewInit (wishlist.ts)', p.qty);
+
+      // All'entrata della Pagina se quantità selezionata = a quantità disponibile disabilita incrementa quantità
+      // !!!!!!!! ATTENZIONE FUNZIONA SOLO SE NEL CARRELLO è PRESENTE UN SOLO PRODOTTO
+
+      // if (p.qty == p.stock_available))  {
+      //   (<HTMLInputElement>document.getElementById("btnIncrementQtyInWL")).disabled = true;
+
+      // }
+
+      // dall'oggetto prodotto prendo la proprietà id_tax_rules_group
+      let id_taxRulesGroup = p.id_tax_rules_group;
+      console.log('id Tax Rule Groups (get in wishlist): ', id_taxRulesGroup)
+
+      // effettuo request a ...api/tax_rule_groups filtrando i risultati per l' id_tax_rules_group del prodotto
+      this.psProducts.loadProductIdTaxRulesGroup(p.id_tax_rules_group).subscribe(taxrule => {
+
+        this.product = taxrule;
+
+        if (taxrule) {
+          // dal Response prendo il nome della tassa applicata e la assegno a tax_rule_name proprità di prodotto 
+          this.product.tax_rule_name = taxrule['name']
+          console.log('Tassa Applicata: ', this.product.tax_rule_name)
+
+          // eseguo split della stringa che restituisce un object
+          let tax_rule_name_object = this.product.tax_rule_name.split(/(\d+)/)
+          console.log('Tassa Applicata SPLIT', tax_rule_name_object)
+
+          // prendo dall' oggetto l'elemento con index = 1 (il numero percentuale della tassa)
+          let _percentTax = tax_rule_name_object[1]
+
+          // trasformo la stringa in intero
+          let percentTax = parseInt(_percentTax)
+          console.log('percent tax Parse (retrieve in w-l.ts) a ' + p.name + ' :' + percentTax)
+
+          /* Importo della tassa e prezzo tax inclusa calcolata (se esiste) sul prezzo scontato */
+          if (p.reduction) {
+            console.log(p.name, ' HA RIDUZIONE SUL PREZZO')
+
+            let taxOverPrice = (p.discountedPrice * percentTax) / 100
+            console.log(p.name, ' Importo tassa sul Prezzo scontato: ', taxOverPrice)
+
+            let priceTaxInc = +p.discountedPrice + +taxOverPrice
+            console.log(p.name, ' Prezzo scontato tasse incluse ', priceTaxInc)
+            console.log(p.name, ' Prezzo scontato tasse incluse x QTY ', priceTaxInc * p.qty)
+
+            p.priceTaxInc = priceTaxInc
+
+            /* Importo della tassa e prezzo tax inclusa calcolata sul prezzo */
+          } else {
+            console.log(p.name, ' NON HA RIDUZIONE SUL PREZZO')
+            let taxOverPrice = (p.price * percentTax) / 100
+            console.log(p.name, ' Importo tassa: ', taxOverPrice)
+
+            let priceTaxInc = +p.price + +taxOverPrice
+            console.log(p.name, ' Prezzo tasse incluse ', priceTaxInc)
+
+            p.priceTaxInc = priceTaxInc
+
+
+          }
+
+          // let priceTaxInc = +p.price + +taxOverPrice
+          // console.log('Prezzo tasse incluse p.name ', priceTaxInc)
+
+          // this.product.priceTaxInc = priceTaxInc
+          // p.priceTaxInc = priceTaxInc
+        }
+      });
+
+
+
+      console.log(p.name, ' Sconto (retrieve in w-l.ts): ', p.reduction)
+      console.log(p.name, ' Prezzo scontato (retrieve in w-l.ts): ', p.discountedPrice)
+      console.log(p.name, ' Importo sottratto al prezzo (retrieve in w-l.ts): ', p.discountAmount)
+
+
+
+    } //end for
+
+
+    // console.log('this product priceTaxInc ', this.product.priceTaxInc)
+
+    this.localstorage.hasLoggedIn().then((hasLoggedIn) => {
+      this.getCurrentUser();
+    });
+
+    // nk 24.07.17
+    let priceTotTaxIncl = this.calcSumTaxIncl()
+    console.log('------>Somma Tasse Incluse x qty (ngAfterViewInit) ', priceTotTaxIncl)
+
+
 
   } // ngAfterViewInit sostituito con ngOnInit
 
@@ -385,13 +395,17 @@ export class WishlistPage {
       if (p.reduction) {
         // effettua somma sui prezzi scontati
         sumTaxExcl += +p.discountedPrice * p.qty
+
+
       } else {
         // non esiste sconto: somma sui prezzi
         sumTaxExcl += +p.price * p.qty
+
       }
     }
     return sumTaxExcl
   }
+
 
   /* p.priceTaxInc tiene conto dell'esistenza o meno di una riduzione sul prezzo (vedi sopra) */
   private calcSumTaxIncl() {
@@ -399,7 +413,7 @@ export class WishlistPage {
     for (let p of this.products) {
       sumTaxIncl += +p.priceTaxInc * p.qty
 
-      // console.log('sumTaxIncl x qty (nella Funzione) ', this.calcSumTaxIncl())
+      // console.log('-----> sumTaxIncl x qty (nella Funzione) ', this.calcSumTaxIncl())
     }
     // console.log('sumTaxIncl x qty (nella Funzione) ', sumTaxIncl)
     return sumTaxIncl
@@ -439,6 +453,7 @@ export class WishlistPage {
 
       console.log('Reference ', p.reference)
     }
+    
     /**
      * TOTALI
      */

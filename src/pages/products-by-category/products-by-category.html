@@ -73,11 +73,18 @@
 
             <!--onError="this.src='assets/img/no_image.svg';"-->
           <span *ngIf="products.hasImage"> 
+            <span *ngIf="products.reduction">
+              <img class="stamp" src="assets/img/offerta_no_stamp.svg" />
+            </span>
+
             <img src="{{ psApi.psShopHostName }}/images/products/{{products.id}}/{{products.id_default_image}}/home_default&ws_key={{ psApi.psWsKey }}"  alt="..."
             style="width: 100px !important; height: auto !important;">
           </span>  
 
           <span *ngIf="!products.hasImage"> 
+            <span *ngIf="products.reduction">
+              <img class="stamp" src="assets/img/offerta_no_stamp.svg" />
+            </span>
             <img src="assets/img/no_image.svg"  alt="..."
             style="width: 100px !important; height: auto !important;">
           </span>
@@ -97,20 +104,20 @@
           <span *ngIf="isActive_currentUser==1">
 
             <span *ngIf="products.unit_price_ratio > 0">
-              <h2 style="color:darkgrey; padding-top: 4px !important; font-size: 1em;" align="left">
+              <h2 style="color:#E03E14;; padding-top: 4px !important; font-size: 1em;" align="left">
                 <strong>
-                  Prezzo per unità: {{ products.price / products.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{products.unity}}
+                  Prezzo: {{ products.price / products.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{products.unity}}
                 </strong>  
               </h2> 
             </span>
 
             <h2 style="color:darkgrey; font-size: 1em; ">
-              Prezzo: 
-              <!-- <span style="color:#E03E14;"> -->
-                <!-- <strong> -->
-                  {{ products.price  | currency:'EUR':true:'1.2-2' }}
-                <!-- </strong> -->
-              <!-- </span> -->
+               <strong> 
+                Prezzo unitario: 
+                <!-- <span style="color:#E03E14;"> -->
+                {{ products.price  | currency:'EUR':true:'1.2-2' }}
+                <!-- </span> -->
+               </strong> 
             </h2>
 
           </span>
@@ -141,24 +148,28 @@
               - {{ products.reduction | percent }}
             </strong>
           </h2>
-          <h2 style="color:darkgrey"> 
+          <h2 style="color:#E03E14"> 
             <strong>
               Prezzo Offerta: {{ products.discountedPrice | currency:'EUR':true:'1.2-2'}} 
             </strong>
           </h2>
 
           <!-- PREZZO x UNITA -->
-          <!-- <span *ngIf="products.unit_price_ratio > 0">
-            <h2 style="font-size: 1em; color:darkgrey;" align="left">
-              Prezzo per unità: {{ products.price / products.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{products.unity}}
+           <span *ngIf="products.unit_price_ratio > 0">
+            <h2 style="font-size: 1em; color:#E03E14;" align="left">
+              <strong>
+                Prezzo: {{ products.discountedPrice / products.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{products.unity}}
+              </strong>
             </h2>
-          </span>  -->
+          </span>  
 
           <h2 style="color:darkgrey; font-size: 1em;">
-            Prezzo:
-            <del>
-              {{ products.price | currency:'EUR':true:'1.2-2'}} 
-            </del>
+            <strong>
+              Prezzo unitario:
+              <del>
+                {{ products.price | currency:'EUR':true:'1.2-2'}} 
+              </del>
+            </strong>
           </h2>
 
         </span>

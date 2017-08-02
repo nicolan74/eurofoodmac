@@ -74,15 +74,23 @@
         <ion-row>
           <ion-col width-50> 
             <h2 align="right" style="font-size: 1em;">
-              Prezzo per unità:
+              Prezzo:
             </h2>
           </ion-col>
             <ion-col width-50>
-              <h2 style="font-size: 1em;" align="left">
-                <!-- <strong> -->
-                {{ product.price_for_unit | currency:'EUR':true:'1.2-2'}} {{product.unity}}
-                <!-- </strong> -->
+              <h2 style="font-size: 1em; color:#E03E14;" align="left">
+                <strong> 
+                  {{ product.discountedPrice / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+                </strong> 
+                <span style="color:black"> 
+                  <del> 
+                    <em> 
+                      ({{ product.price_for_unit | currency:'EUR':true:'1.2-2'}})
+                    </em>
+                  </del> 
+                </span>
               </h2> 
+
             </ion-col>
         </ion-row>
       </span>    
@@ -90,7 +98,7 @@
       <ion-row style="padding-top:2px;"> 
         <ion-col width-50>
           <h2 align="right" style="font-size: 1em;"> 
-            Prezzo:
+            Prezzo unitario:
           </h2>
         </ion-col>
         <ion-col width-50>
@@ -146,12 +154,14 @@
           <ion-row>
             <ion-col width-50>
               <h2 style="font-size: 1em;" align="right">
-                Prezzo per unità:
+                Prezzo:
               </h2>
             </ion-col>
             <ion-col width-50>
-              <h2 style="font-size: 1em;" align="left">
-                {{ product.price_for_unit | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+              <h2 style="font-size: 1em; color:#E03E14;" align="left">
+                <strong>
+                  {{ product.price_for_unit | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+                </strong>
               </h2> 
             </ion-col>
           </ion-row>
@@ -161,7 +171,7 @@
         <ion-row>
           <ion-col width-50>
             <h2 style="font-size: 1em; padding-top: 2px !important;" align="right">
-              Prezzo:
+              Prezzo unitario:
             </h2>
           </ion-col>
           <ion-col width-50>

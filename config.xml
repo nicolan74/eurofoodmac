@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.frontiere21.negozio24" version="0.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Negozio 24 vT</name>
-    <description>Negozio 24</description>
+<widget id="com.frontiere21.eurofood" version="0.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Eurofood</name>
+    <description>Eurofood</description>
     <author email="info@frontiere21.it" href="http://frontiere21.com/">Frontiere21 S.R.L</author>
     <content src="index.html" />
     <access origin="*" />

@@ -21,4 +21,12 @@ page-products-by-category {
         border-radius: 100%;
         //  opacity:0.6;
     }
+
+    .stamp{
+        position:absolute; 
+        top: 1px; 
+        left: 1px; 
+        z-index: 3;
+        max-height: 50px;
+    }
 }

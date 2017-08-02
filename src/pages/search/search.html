@@ -80,20 +80,20 @@
       <span *ngIf="isActive_currentUser==1">  
 
         <span *ngIf="product.unit_price_ratio > 0">
-          <h2 style="font-size: 1em; color:darkgrey;" align="left">
+          <h2 style="font-size: 1em; color:#E03E14;" align="left">
             <strong>
-              Prezzo per unità: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
+              Prezzo: {{ product.price / product.unit_price_ratio | currency:'EUR':true:'1.2-2'}} {{product.unity}}
             </strong>
           </h2> 
         </span>
 
         <h2 style="font-size: 1em; color:darkgrey;">
-          Prezzo:  
-          <!-- <span style="color:#E03E14;"> -->
-            <!-- <strong> -->
+            <strong> 
+              Prezzo unitario:  
+              <!-- <span style="color:#E03E14;"> -->
               {{ product.price  | currency:'EUR':true:'1.2-2'}}
-            <!-- </strong> -->
-          <!-- </span> -->
+              <!-- </span> -->
+           </strong> 
         </h2>
 
       </span>
